@@ -5,6 +5,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Happy hello </Text>
+          <Text>Happy commit </Text>
+  
     </View>
   );
 }
