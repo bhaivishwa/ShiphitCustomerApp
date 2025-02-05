@@ -16,75 +16,62 @@ import {
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-
-export default function App() {
+export default function otp() {
   return (
-    
-    <View style={styles.signuppage}>
-      <View style={styles.signup}>
+        
+    <View style={styles.otppage}>
+      <View style={styles.verfication}>
         <Image
           source={require("./assets/signup.png")}
-          style={styles.signupimage}
+          style={styles.verifycode}
         />
       </View>
 
       <View style={styles.login}>
         <View>
-          <Text style={styles.bold1}>All your favorites from your native!</Text>
+          <Text style={styles.bold1}>Verification Code</Text>
         </View>
-
-        <View style={styles.box1}>
-          <View style={styles.containerr}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => alert("This is Your SHIPHIT")}
-            >
-              <Text style={styles.buttonText}>SignUp</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+      
+        <View>
+        <Text>Enter the 4 digit code sent to your WhatsApp at</Text><View>
 
         <View>
-          <View style={styles.container}>
-            <TextInput
-              style={styles.input}
-              placeholder="+91|Enter phone number"
-              keyboardType="phone-pad" // Opens number keypad
-              maxLength={10} // Limits to 10 digits
-              value={phone}
-              onChangeText={setPhone}
-            /></View>
+        <Text>+91 9898989898</Text>
+        </View>
 
-           <View>
-            <View style={styles.text}>  
+        <View style={{ padding: 20 }}>
+      <OTPInputView
+        pinCount={4} 
+        autoFocusOnLoad
+        codeInputFieldStyle={{
+          width: 50,
+          height: 50,
+          borderWidth: 2,
+          borderColor: "#3498db",
+          textAlign: "center",
+          fontSize: 24,
+          borderRadius: 10,
+        }}
+        onCodeFilled={(code) => console.log("OTP Entered:", code)}
+      />
+    </View>
 
-             <Text style={styles.flex}>
-              By Continuing, you agree to our <Text style={styles.colortext1}>Terms of Service,</Text>
-            </Text>
-
-           
-             <Text style={styles.flex1}>
-              <Text style={styles.colortext2}>Privacy policies </Text> & <Text style={styles.colortext3}> Content policies.</Text>
-            </Text>
-           </View>
-          
-            <View style={styles.btn}>
-            <Button title="continue" onPress={handlePress} />
-            </View>
+      <View>
+        <Text>Did't receive a code? <Text>Resend</Text></Text>
+      </View>
+    
+        <View style={styles.btn}>
+        <Button title="continue" onPress={handlePress} />
+        </View>
  
-            <View style={styles.skip}>
-            <Text>
-              Skip for now{" "}
-              <View style={styles.arrow}>
-              <AntDesign name="arrowright" size={24} color="black" />
-              </View>
-              </Text>
+            
+             
               </View>
             
           </View>
         </View>
       </View>
-    </View>
+   
   );
 }
 
