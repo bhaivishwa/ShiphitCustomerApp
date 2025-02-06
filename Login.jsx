@@ -6,14 +6,12 @@ import {
   View,
   Image,
   TextInput,
-  OTPInputView,
   TouchableOpacity,
-  handleOtpSubmit,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export default function Otp() {
+export default function Login() {
   const [phone, setPhone] = useState("");
 
   return (
@@ -25,26 +23,45 @@ export default function Otp() {
             style={styles.signupimage}
           />
         </View>
-       
+        {/* Login Section */}
         <View style={styles.login}>
-          <Text style={styles.bold1}>Verification  Code</Text>
-         
-          <Text style={styles.login_text}>Enter the 4 digit code sent to your WhatsApp at</Text>
-          <Text style={styles.login_text1}>+91 9898989898</Text>
-        
-
-      <OTPInputView
-        style={styles.otpContainer}
-        pinCount={6} // Change based on OTP length
-        autoFocusOnLoad
-        codeInputFieldStyle={styles.otpInput}
-        codeInputHighlightStyle={styles.otpInputActive}
-        onCodeChanged={(code) => setOtp(code)}
-        onCodeFilled={handleOtpSubmit}
-      />
-        
-
-         <Text>Did't receive a code? <Text>Resend</Text></Text>
+          <Text style={styles.bold1}>All your favorites from your native!</Text>
+          {/* Input Section */}
+          <Text style={styles.login_text}>Login</Text>
+          <View style={styles.container}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Mobile Number"
+              keyboardType="phone-pad"
+              maxLength={10}
+              value={phone}
+              onChangeText={setPhone}
+            />
+          </View>
+          {/* Terms & Conditions */}
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <BouncyCheckbox
+              size={22}
+              fillColor="#6246D2"
+              unfillColor="#FFFFFF"
+              iconStyle={{ borderColor: "#6246D2", borderRadius: 2 }}
+              innerIconStyle={{ borderWidth: 2, borderRadius: 2 }}
+            />
+            <View>
+              <Text style={styles.colortext1}>
+                By continuing, You agree to our{" "}
+                <Text style={{ color: "#6246D2" }}>Terms of Service</Text>,
+                Privacy policies &{" "}
+                <Text style={{ color: "#6246D2" }}>Content Policies</Text>
+              </Text>
+            </View>
+          </View>
+          {/* Continue Button */}
           <TouchableOpacity
             style={styles.button}
             onPress={() => console.log("Continue Pressed")}
@@ -86,7 +103,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
-  login_text1: {
+  login_text: {
     fontSize: 16,
     fontWeight: "500",
     textAlign: "center",
