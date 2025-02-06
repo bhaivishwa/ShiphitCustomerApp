@@ -5,6 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Happy coding</Text>
+      <Text>Happy coding</Text>
     </View>
   );
 }
