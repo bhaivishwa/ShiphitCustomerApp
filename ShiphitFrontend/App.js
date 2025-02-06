@@ -1,20 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import tw from "tailwind-react-native-classnames"; // Import Tailwind helper
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Happy hello </Text>
-      <Text>Happy commit </Text>
+    <View style={tw`flex-1 justify-center items-center bg-white`}>
+      <Text style={tw`text-red-600 font-extrabold text-lg`}>
+        testtesttesttesttesttesttesttesttest
+      </Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
