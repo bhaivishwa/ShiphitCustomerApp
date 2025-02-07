@@ -1,10 +1,6 @@
-// tailwind.config.js
-
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./App.{js,jsx,ts,tsx}",
-    "./<custom directory>/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./App.{js,jsx,ts,tsx}", "./Layouts/**/*.{js,jsx,ts,tsx}"], // ✅ Add paths
   theme: {
     extend: {},
   },
