@@ -6,13 +6,17 @@ import {
   View,
   Image,
   TextInput,
+  Button,
   TouchableOpacity,
+  handleOtpSubmit,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export default function Login() {
+export default function Otp() {
   const [phone, setPhone] = useState("");
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#6246D2" }}>
@@ -23,45 +27,33 @@ export default function Login() {
             style={styles.signupimage}
           />
         </View>
-        {/* Login Section */}
+
         <View style={styles.login}>
-          <Text style={styles.bold1}>All your favorites from your native!</Text>
-          {/* Input Section */}
-          <Text style={styles.login_text}>Login</Text>
-          <View style={styles.container}>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Mobile Number"
-              keyboardType="phone-pad"
-              maxLength={10}
-              value={phone}
-              onChangeText={setPhone}
-            />
-          </View>
-          {/* Terms & Conditions */}
+          <Text style={styles.bold1}>Verification Code</Text>
+
+          <Text style={styles.login_text}>
+            Enter the 4 digit code sent to your WhatsApp at
+          </Text>
+          <Text style={styles.login_text1}>+91 9898989898</Text>
+
           <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
-            <BouncyCheckbox
-              size={22}
-              fillColor="#6246D2"
-              unfillColor="#FFFFFF"
-              iconStyle={{ borderColor: "#6246D2", borderRadius: 2 }}
-              innerIconStyle={{ borderWidth: 2, borderRadius: 2 }}
+            <Text>Enter OTP</Text>
+            <TextInput
+              handleTextChange={(text) => setOtp(text)}
+              inputCount={4}
             />
-            <View>
-              <Text style={styles.colortext1}>
-                By continuing, You agree to our{" "}
-                <Text style={{ color: "#6246D2" }}>Terms of Service</Text>,
-                Privacy policies &{" "}
-                <Text style={{ color: "#6246D2" }}>Content Policies</Text>
-              </Text>
-            </View>
+            <Button
+              title="Submit"
+              onPress={() => console.log("OTP Entered:", otp)}
+            />
           </View>
-          {/* Continue Button */}
+
+          <Text>
+            Did't receive a code? <Text style={styles.login_text2}>Resend</Text>
+          </Text>
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => console.log("Continue Pressed")}
@@ -96,20 +88,19 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     justifyContent: "space-between",
-    alignItems: "center",
   },
   bold1: {
     fontSize: 21,
     fontWeight: "600",
-    textAlign: "center",
   },
-  login_text: {
+  login_text1: {
     fontSize: 16,
     fontWeight: "500",
-    textAlign: "center",
-    color: "#A1A0A5",
-    marginBottom: "10",
-    marginTop: "10",
+    color: "#560C7B",
+    position: "relative",
+    bottom: 30,
+    paddingVertical: 20,
+    marginBottom: 10,
   },
   container: {
     width: "100%",
@@ -148,5 +139,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     fontWeight: "bold",
+  },
+  login_text2: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#560C7B",
   },
 });
