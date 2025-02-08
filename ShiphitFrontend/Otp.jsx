@@ -28,27 +28,20 @@ export default function Otp() {
           />
         </View>
 
-        <View style={styles.login}>
-          <Text style={styles.bold1}>Verification Code</Text>
+    
+       <View style={styles.login}>        
+        <Text style={styles.bold1}>Verification Code</Text>
+         
+           <View style={styles.logintextcontent} > 
+            <Text style={styles.login_text}>
+            Enter the 4 digit code sent to your WhatsApp at  
+           <Text style={styles.login_text1}>     +91 9898989898</Text></Text>
+           </View>
+         
+         
+         
 
-          <Text style={styles.login_text}>
-            Enter the 4 digit code sent to your WhatsApp at
-          </Text>
-          <Text style={styles.login_text1}>+91 9898989898</Text>
-
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text>Enter OTP</Text>
-            <TextInput
-              handleTextChange={(text) => setOtp(text)}
-              inputCount={4}
-            />
-            <Button
-              title="Submit"
-              onPress={() => console.log("OTP Entered:", otp)}
-            />
-          </View>
+      
 
           <Text>
             Did't receive a code? <Text style={styles.login_text2}>Resend</Text>
@@ -97,10 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     color: "#560C7B",
-    position: "relative",
-    bottom: 30,
-    paddingVertical: 20,
-    marginBottom: 10,
   },
   container: {
     width: "100%",
@@ -144,5 +133,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     color: "#560C7B",
+  },
+  logintextcontent:{
+   paddingBottom:80,
   },
 });
