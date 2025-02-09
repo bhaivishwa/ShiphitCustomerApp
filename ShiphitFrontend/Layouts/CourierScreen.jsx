@@ -1,24 +1,36 @@
-import { View, Text, Image, ScrollView } from "react-native";
-import React from "react";
+import { View, Text, ScrollView, Image, Animated } from "react-native";
+import React, { useRef, useState } from "react";
 import tw from "tailwind-react-native-classnames";
-import { LinearGradient } from "expo-linear-gradient";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { FlatList } from "react-native-gesture-handler";
+import CountrySelector from "./CountrySelector";
+import Service from "./Service";
+import FrequentlyShiped from "./FrequentlyShiped";
+import PackingToggle from "./PackingToggle";
+import ThingsCanship from "./ThingsCanship";
+import { LinearGradient } from "expo-linear-gradient";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 const CourierScreen = () => {
-  const countries = [
-    { id: "1", name: "France", image: require("../assets/france.png") },
-    { id: "2", name: "USA", image: require("../assets/usa.png") },
-    { id: "3", name: "UKFrance", image: require("../assets/uk.png") },
-    { id: "4", name: "Singapore", image: require("../assets/singapore.png") },
-    { id: "5", name: "USA", image: require("../assets/usa.png") },
-  ];
+  const [isOn, setIsOn] = useState(true); // Default: "Yes"
+  const translateX = useRef(new Animated.Value(0)).current; // For smooth animation
+  console.log(isOn);
+  const toggleSwitch = () => {
+    setIsOn(!isOn);
+    Animated.timing(translateX, {
+      toValue: isOn ? 30 : 0, // Moves the circle smoothly
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      {/* ✅ Full screen container */}
-
-      {/* Header Section */}
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#F6F3FC",
+      }}
+    >
+      {/* Header */}
       <View
         style={[
           { backgroundColor: "#6246D2", padding: 20 },
@@ -34,67 +46,113 @@ const CourierScreen = () => {
           <MaterialIcons name="help-outline" size={24} color="white" />
         </View>
       </View>
-
-      {/* Content Section */}
-      <View style={tw`p-5 flex-1`}>
-        <Text style={tw`text-lg font-medium`}>
-          Frequently shipped from India
-        </Text>
-
-        <FlatList
-          data={countries} // ✅ Using sample data
-          keyExtractor={(item) => item.id}
-          horizontal // ✅ Enables horizontal scrolling
-          showsHorizontalScrollIndicator={false} // ✅ Hides scrollbar
-          contentContainerStyle={{ paddingVertical: 10 }}
-          renderItem={({ item, index }) => (
-            <View
-              style={[
-                tw`relative h-32 w-24`,
-                { marginRight: index !== countries.length - 1 ? 15 : 0 }, // ✅ Space between images
-              ]}
-            >
-              {/* Image */}
-              <Image
-                style={{
-                  borderRadius: 10,
-                  height: 128,
-                  width: 96,
-                  resizeMode: "cover",
-                }}
-                source={item.image}
-              />
-
-              {/* Gradient Overlay */}
+      {/* Scrollable Content */}
+      <ScrollView
+        showsVerticalScrollIndicator={false} // Hides the scrollbar (set to true if you want it visible)
+        keyboardShouldPersistTaps="handled"
+      >
+        <FrequentlyShiped />
+        <CountrySelector />
+        <Service />
+        <PackingToggle />
+        <ThingsCanship />
+      </ScrollView>
+      <View>
+        <LinearGradient
+          colors={["#6246D2", "#CE4FE3"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            position: "relative",
+            alignSelf: "flex-start",
+            borderRadius: 2,
+            gap: 4,
+            width: "100%",
+            paddingLeft: 20,
+            paddingTop: 10,
+            paddingBottom: 10,
+            justifyContent: "center",
+          }}
+        >
+          <Text
+            style={{ color: "white", fontSize: 18, fontWeight: "semibold" }}
+          >
+            USA | Economy(4 - 6 days)
+          </Text>
+        </LinearGradient>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 10,
+            paddingBottom: 10,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <Image
+              style={{ width: 24, height: 24 }}
+              source={require("../assets/package.png")}
+            />
+            <Text style={{ fontSize: 21, fontWeight: "600" }}>5 Kg</Text>
+            <MaskedView maskElement={<Text style={styles.text}>₹8500</Text>}>
               <LinearGradient
-                colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.1)", "transparent"]}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 0, y: 0 }}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "100%",
-                  borderRadius: 10,
-                }}
-              />
-
-              {/* Country Name */}
-              <Text
-                style={[
-                  tw`absolute bottom-2 text-white font-bold text-xs`,
-                  { width: "100%", textAlign: "center" }, // ✅ Ensures proper centering
-                ]}
+                colors={["#6246D2", "#CE4FE3"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }} // Left to right
               >
-                {item.name}
+                <Text style={[styles.text, { opacity: 0 }]}>₹8500</Text>
+              </LinearGradient>
+            </MaskedView>
+          </View>
+
+          <View>
+            <LinearGradient
+              colors={["#6246D2", "#CE4FE3"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }} // Left to right
+              style={{
+                alignSelf: "flex-start",
+                borderRadius: 300,
+                width: 85,
+                height: 45,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 500,
+                  color: "white",
+                }}
+              >
+                Next
               </Text>
-            </View>
-          )}
-        />
+            </LinearGradient>
+          </View>
+        </View>
       </View>
     </View>
   );
 };
 
 export default CourierScreen;
+
+const styles = {
+  text: {
+    fontSize: 21,
+    fontWeight: "600",
+    marginLeft: 10,
+    color: "black", // Fallback color
+  },
+};

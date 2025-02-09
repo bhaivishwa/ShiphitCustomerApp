@@ -4,7 +4,7 @@ import React from "react";
 const Courier = () => {
   return (
     <View>
-      <Text>Frequently shipped countries from India</Text>
+      <Text>Courier</Text>
     </View>
   );
 };
