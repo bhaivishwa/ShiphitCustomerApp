@@ -8,8 +8,11 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TouchableHighlight,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons"; // For close button
+import Feather from "@expo/vector-icons/Feather";
+import { TextInput } from "react-native-gesture-handler";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -19,12 +22,90 @@ const CountrySelector = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState("from"); // Track which selector is active
 
+  const countryFlags = {
+    "United States of America": require("../assets/flagsFinal/usa.png"),
+    "United Kingdom": require("../assets/flagsFinal/uk.png"),
+    Singapore: require("../assets/flagsFinal/singapore.png"),
+    Canada: require("../assets/flagsFinal/canada.png"),
+    France: require("../assets/flagsFinal/france.png"),
+  };
+
   const countryOptions = [
-    { key: "UK", label: "United Kingdom" },
-    { key: "USA", label: "United States" },
-    { key: "Austa", label: "Australia" },
-    { key: "Germany", label: "Germany" },
-    { key: "India", label: "India" },
+    {
+      key: "United States of America",
+      label: "United States of America",
+      image: countryFlags["United States of America"],
+    },
+    {
+      key: "United Kingdom",
+      label: "United Kingdom",
+      image: countryFlags["United Kingdom"],
+    },
+    {
+      key: "Singapore",
+      label: "Singapore",
+      image: countryFlags["Singapore"],
+    },
+    {
+      key: "Canada",
+      label: "Canada",
+      image: countryFlags["Canada"],
+    },
+    {
+      key: "France",
+      label: "France",
+      image: countryFlags["France"],
+    },
+    {
+      key: "United States of America",
+      label: "United States of America",
+      image: countryFlags["United States of America"],
+    },
+    {
+      key: "United Kingdom",
+      label: "United Kingdom",
+      image: countryFlags["United Kingdom"],
+    },
+    {
+      key: "Singapore",
+      label: "Singapore",
+      image: countryFlags["Singapore"],
+    },
+    {
+      key: "Canada",
+      label: "Canada",
+      image: countryFlags["Canada"],
+    },
+    {
+      key: "France",
+      label: "France",
+      image: countryFlags["France"],
+    },
+    {
+      key: "United States of America",
+      label: "United States of America",
+      image: countryFlags["United States of America"],
+    },
+    {
+      key: "United Kingdom",
+      label: "United Kingdom",
+      image: countryFlags["United Kingdom"],
+    },
+    {
+      key: "Singapore",
+      label: "Singapore",
+      image: countryFlags["Singapore"],
+    },
+    {
+      key: "Canada",
+      label: "Canada",
+      image: countryFlags["Canada"],
+    },
+    {
+      key: "France",
+      label: "France",
+      image: countryFlags["France"],
+    },
   ];
 
   // Open Modal for From or To selection
@@ -95,23 +176,56 @@ const CountrySelector = () => {
           <View style={styles.modalContainer}>
             {/* Modal Header */}
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Select Country</Text>
+              <Text style={styles.modalTitle}>Choose Country</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
                 <AntDesign name="close" size={24} color="black" />
               </TouchableOpacity>
             </View>
-
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 8,
+                paddingLeft: 15,
+                paddingRight: 15,
+                paddingTop: 10,
+                paddingBottom: 10,
+                borderWidth: 1,
+                borderColor: "#F6F3FC",
+              }}
+            >
+              <Feather name="search" size={24} color="#A1A0A5" />
+              <TextInput
+                placeholder="Search for an items"
+                style={{ fontSize: 18, width: "70%" }}
+              ></TextInput>
+            </View>
             {/* Country List */}
             <FlatList
               data={countryOptions}
               keyExtractor={(item) => item.key}
               renderItem={({ item }) => (
-                <TouchableOpacity
+                <TouchableHighlight
+                  underlayColor="#F9F7FD"
                   style={styles.countryOption}
                   onPress={() => selectCountry(item)}
                 >
-                  <Text style={styles.countryText}>{item.label}</Text>
-                </TouchableOpacity>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingHorizontal: 12,
+                      gap: 15,
+                    }}
+                  >
+                    <Image
+                      style={{ width: 28, height: 28, resizeMode: "contain" }}
+                      source={item.image} // ✅ Dynamically fetch flag from dataset
+                    />
+                    <Text style={styles.countryText}>{item.label}</Text>
+                  </View>
+                </TouchableHighlight>
               )}
             />
           </View>
@@ -163,6 +277,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
+    gap: 10,
     paddingBottom: 30,
   },
   modalHeader: {
@@ -172,16 +287,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
   },
   countryOption: {
     paddingVertical: 15,
-    borderBottomWidth: 1,
     borderBottomColor: "#eee",
   },
   countryText: {
     fontSize: 16,
+    fontWeight: 500,
+  },
+  countryOption: {
+    paddingVertical: 15,
+    borderRadius: 8,
+  },
+  countryText: {
+    fontSize: 16,
+    color: "#333",
   },
 });
 

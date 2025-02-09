@@ -157,6 +157,8 @@ const countries = [
 const Service = () => {
   const [activeTab, setactiveTab] = useState("Economy");
   const [Weight_type, setWeight_type] = useState("Kg");
+  const [weight, setweight] = useState("0");
+
   return (
     <View
       style={{
@@ -220,7 +222,10 @@ const Service = () => {
           }}
         >
           <TextInput
-            value="0"
+            value={weight}
+            onChange={(e) => {
+              setweight(e.target.value);
+            }}
             style={{
               // Corrected property
               color: "black",

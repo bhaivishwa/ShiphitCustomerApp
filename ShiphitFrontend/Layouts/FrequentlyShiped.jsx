@@ -7,10 +7,10 @@ import tw from "tailwind-react-native-classnames";
 const FrequentlyShiped = () => {
   const countries = [
     { id: "1", name: "France", image: require("../assets/france.png") },
-    { id: "2", name: "USA", image: require("../assets/usa.png") },
+    { id: "2", name: "USA", image: require("../assets/freq_usa.png") },
     { id: "3", name: "UKFrance", image: require("../assets/uk.png") },
     { id: "4", name: "Singapore", image: require("../assets/singapore.png") },
-    { id: "5", name: "USA", image: require("../assets/usa.png") },
+    { id: "5", name: "USA", image: require("../assets/freq_usa.png") },
   ];
   return (
     <View style={{ marginBottom: 2, backgroundColor: "white", padding: 20 }}>

@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, Image, Animated } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -10,6 +17,7 @@ import PackingToggle from "./PackingToggle";
 import ThingsCanship from "./ThingsCanship";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
+import { useNavigation } from "@react-navigation/native";
 
 const CourierScreen = () => {
   const [isOn, setIsOn] = useState(true); // Default: "Yes"
@@ -23,6 +31,8 @@ const CourierScreen = () => {
       useNativeDriver: false,
     }).start();
   };
+  const navigation = useNavigation(); // Access navigation object
+
   return (
     <View
       style={{
@@ -38,7 +48,12 @@ const CourierScreen = () => {
         ]}
       >
         <View style={tw`flex-row items-center`}>
-          <AntDesign name="arrowleft" size={24} color="white" />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            activeOpacity={0.7}
+          >
+            <AntDesign name="arrowleft" size={24} color="white" />
+          </TouchableOpacity>
           <Text style={tw`text-white text-lg pl-4`}>Courier</Text>
         </View>
         <View style={tw`flex-row items-center`}>
