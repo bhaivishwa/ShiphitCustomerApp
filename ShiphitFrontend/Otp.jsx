@@ -12,12 +12,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useRoute } from "@react-navigation/native";
 
 export default function Otp() {
-  const [phone, setPhone] = useState("");
   const navigation = useNavigation();
-
+  const route = useRoute();
+  const { phone, otp } = route.params || {}; // Get the phone number
+  console.log(typeof otp);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#6246D2" }}>
       <View style={styles.signuppage}>
@@ -27,26 +28,20 @@ export default function Otp() {
             style={styles.signupimage}
           />
         </View>
-
-    
-       <View style={styles.login}>        
-        <Text style={styles.bold1}>Verification Code</Text>
-         
-           <View style={styles.logintextcontent} > 
-            <Text style={styles.login_text}>
-            Enter the 4 digit code sent to your WhatsApp at  
-           <Text style={styles.login_text1}>     +91 9898989898</Text></Text>
-           </View>
-         
-         
-         
-
-      
-
+        <View style={styles.login}>
+          <Text style={styles.bold1}>Verification Code</Text>
+          <View style={styles.logintextcontent}>
+            <Text style={{ color: "#666666", fontSize: 16, marginBottom: 7 }}>
+              Enter the 4 digit code sent to your WhatsApp at
+            </Text>
+            <Text style={styles.login_text1}>{phone}</Text>
+          </View>
+          <View>
+            <TextInput placeholder="Enter OTP" value={String(otp)}></TextInput>
+          </View>
           <Text>
             Did't receive a code? <Text style={styles.login_text2}>Resend</Text>
           </Text>
-
           <TouchableOpacity
             style={styles.button}
             onPress={() => console.log("Continue Pressed")}
@@ -134,7 +129,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#560C7B",
   },
-  logintextcontent:{
-   paddingBottom:80,
+  logintextcontent: {
+    paddingBottom: 80,
   },
 });
