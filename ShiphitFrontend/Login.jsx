@@ -33,11 +33,6 @@ export default function Login() {
 
   // ✅ Handle Form Submission
   const onSubmit = async (data) => {
-    // const countryCode = `+${phoneInput.current?.getCallingCode()}`; // Get selected country code
-    // console.log("Country Code:", countryCode);
-    // console.log("Phone Number:", data.phone);
-    // console.log(termsConditions.current.onCheckboxPress());
-    // // navigation.navigate("Otp");
     await axios
       .post("https://shiphit-backend.onrender.com/sendOTP", {
         name: "Nithish",
@@ -46,7 +41,6 @@ export default function Login() {
       .then((d) => {
         navigation.navigate("Otp", {
           phone: `+91${data.phone}`,
-          otp: d.data.otp,
         });
       })
       .catch((e) => {
