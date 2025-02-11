@@ -21,7 +21,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import RNPickerSelect from "react-native-picker-select";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-export default function Courier() {
+export default function Courierpickupdetails() {
   const [
     phone,
     setPhone,
