@@ -13,12 +13,10 @@ import {
 import { AntDesign } from "@expo/vector-icons"; // For close button
 import Feather from "@expo/vector-icons/Feather";
 import { TextInput } from "react-native-gesture-handler";
-
 const screenHeight = Dimensions.get("window").height;
-
-const CountrySelector = () => {
+import countryOptions from "../utilities/countries";
+const CountrySelector = ({ toCountry, setToCountry }) => {
   const [fromCountry, setFromCountry] = useState("Tamil Nadu");
-  const [toCountry, setToCountry] = useState("UK");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState("from"); // Track which selector is active
 
@@ -29,84 +27,6 @@ const CountrySelector = () => {
     Canada: require("../assets/flagsFinal/canada.png"),
     France: require("../assets/flagsFinal/france.png"),
   };
-
-  const countryOptions = [
-    {
-      key: "United States of America",
-      label: "United States of America",
-      image: countryFlags["United States of America"],
-    },
-    {
-      key: "United Kingdom",
-      label: "United Kingdom",
-      image: countryFlags["United Kingdom"],
-    },
-    {
-      key: "Singapore",
-      label: "Singapore",
-      image: countryFlags["Singapore"],
-    },
-    {
-      key: "Canada",
-      label: "Canada",
-      image: countryFlags["Canada"],
-    },
-    {
-      key: "France",
-      label: "France",
-      image: countryFlags["France"],
-    },
-    {
-      key: "United States of America",
-      label: "United States of America",
-      image: countryFlags["United States of America"],
-    },
-    {
-      key: "United Kingdom",
-      label: "United Kingdom",
-      image: countryFlags["United Kingdom"],
-    },
-    {
-      key: "Singapore",
-      label: "Singapore",
-      image: countryFlags["Singapore"],
-    },
-    {
-      key: "Canada",
-      label: "Canada",
-      image: countryFlags["Canada"],
-    },
-    {
-      key: "France",
-      label: "France",
-      image: countryFlags["France"],
-    },
-    {
-      key: "United States of America",
-      label: "United States of America",
-      image: countryFlags["United States of America"],
-    },
-    {
-      key: "United Kingdom",
-      label: "United Kingdom",
-      image: countryFlags["United Kingdom"],
-    },
-    {
-      key: "Singapore",
-      label: "Singapore",
-      image: countryFlags["Singapore"],
-    },
-    {
-      key: "Canada",
-      label: "Canada",
-      image: countryFlags["Canada"],
-    },
-    {
-      key: "France",
-      label: "France",
-      image: countryFlags["France"],
-    },
-  ];
 
   // Open Modal for From or To selection
   const openModal = (type) => {

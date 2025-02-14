@@ -154,10 +154,17 @@ const countries = [
   },
 ];
 
-const Service = () => {
-  const [activeTab, setactiveTab] = useState("Economy");
-  const [Weight_type, setWeight_type] = useState("Kg");
-  const [weight, setweight] = useState("0");
+const Service = ({
+  activeTab,
+  setactiveTab,
+  Weight_type,
+  setWeight_type,
+  weight,
+  setweight,
+}) => {
+  // const [activeTab, setactiveTab] = useState("Economy");
+  // const [Weight_type, setWeight_type] = useState("Kg");
+  // const [weight, setweight] = useState("");
 
   return (
     <View
@@ -223,8 +230,9 @@ const Service = () => {
         >
           <TextInput
             value={weight}
-            onChange={(e) => {
-              setweight(e.target.value);
+            onChangeText={(text) => {
+              setweight(text);
+              // console.log(text);
             }}
             style={{
               // Corrected property

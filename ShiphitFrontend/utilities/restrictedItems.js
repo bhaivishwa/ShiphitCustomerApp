@@ -5,7 +5,7 @@ const dataset = [
   },
   {
     title: "Category 2",
-    subtitles: ["Lorem ipsum dolor sit amet", "Lorem ipsum dolor sit amet"],
+    subtitles: ["Lorem ipsum dolor sit ok", "Lorem ipsum dolor sit amet"],
   },
 ];
 

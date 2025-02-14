@@ -34,7 +34,7 @@ export default function Login() {
   // ✅ Handle Form Submission
   const onSubmit = async (data) => {
     await axios
-      .post("https://shiphit-backend.onrender.com/sendOTP", {
+      .post("https://shipmentbackend-ad96a7a505ec.herokuapp.com/sendOTP", {
         name: "Nithish",
         phoneNumber: `+91${data.phone}`,
       })
@@ -52,7 +52,10 @@ export default function Login() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#6246D2" }}>
       <View style={styles.signuppage}>
         <View style={styles.signup}>
-          <Image source={require("./assets/signup.png")} style={styles.signupimage} />
+          <Image
+            source={require("./assets/signup.png")}
+            style={styles.signupimage}
+          />
         </View>
 
         {/* Login Section */}

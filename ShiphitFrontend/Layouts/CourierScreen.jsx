@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -22,9 +22,48 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import Entypo from "@expo/vector-icons/Entypo";
+import salesrates from "../Dataset/salesrates";
+import axios from "axios";
 
 const CourierScreen = () => {
   const [isOn, setIsOn] = useState(true); // Default: "Yes"
+  const [to_Country, set_ToCountry] = useState("UK");
+  const [service, setservice] = useState("");
+  const [Weighttype, setWeighttype] = useState("Kg");
+  const [weight_, setweight_] = useState("0");
+  const [salesdata, setsalesdate] = useState({});
+
+  const sendSalesRatesRequest = async (to_Country, service, weight_) => {
+    if (!to_Country || !service || !weight_) {
+      console.warn("Skipping request: Missing required parameters.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://shipmentbackend-ad96a7a505ec.herokuapp.com/salesrates",
+        {
+          Country_to: to_Country,
+          Service: service,
+          Weight: weight_,
+        }
+      );
+      setsalesdate(response.data);
+      console.log("POST Request Success:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    if (service == "") {
+      return;
+    }
+    sendSalesRatesRequest(to_Country, service, "4 Kg");
+  }, [to_Country, service, weight_]);
+
   const translateX = useRef(new Animated.Value(0)).current; // For smooth animation
   console.log(isOn);
   const toggleSwitch = () => {
@@ -65,6 +104,9 @@ const CourierScreen = () => {
       currency: "CAD C$",
     },
   ];
+
+  console.log("salesdata", Object.keys(salesdata).length === 0, salesdata); // true (object is empty)
+
   return (
     <View
       style={{
@@ -187,12 +229,25 @@ const CourierScreen = () => {
         keyboardShouldPersistTaps="handled"
       >
         <FrequentlyShiped />
-        <CountrySelector />
-        <Service />
+        <CountrySelector toCountry={to_Country} setToCountry={set_ToCountry} />
+        <Service
+          activeTab={service}
+          setactiveTab={setservice}
+          Weight_type={Weighttype}
+          setWeight_type={setWeighttype}
+          weight={weight_}
+          setweight={setweight_}
+        />
         <PackingToggle />
         <ThingsCanship />
       </ScrollView>
-      <View>
+      <View
+        style={
+          Object.keys(salesdata).length === 0
+            ? { display: "none" }
+            : { display: "flex" }
+        }
+      >
         <LinearGradient
           colors={["#6246D2", "#CE4FE3"]}
           start={{ x: 0, y: 0 }}
@@ -212,7 +267,8 @@ const CourierScreen = () => {
           <Text
             style={{ color: "white", fontSize: 18, fontWeight: "semibold" }}
           >
-            USA | Economy(4 - 6 days)
+            {salesdata?.Country_to} | {salesdata?.Service} (
+            {salesdata.daysToDelivery})
           </Text>
         </LinearGradient>
         <View
@@ -235,14 +291,20 @@ const CourierScreen = () => {
             }}
           >
             <Entypo name="box" size={24} color="#05040B" />
-            <Text style={{ fontSize: 21, fontWeight: "600" }}>5 Kg</Text>
-            <MaskedView maskElement={<Text style={styles.text}>₹8500</Text>}>
+            <Text style={{ fontSize: 21, fontWeight: "600" }}>
+              {salesdata.weight}
+            </Text>
+            <MaskedView
+              maskElement={<Text style={styles.text}>{salesdata?.price}</Text>}
+            >
               <LinearGradient
                 colors={["#6246D2", "#CE4FE3"]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }} // Left to right
               >
-                <Text style={[styles.text, { opacity: 0 }]}>₹8500</Text>
+                <Text style={[styles.text, { opacity: 0 }]}>
+                  {salesdata?.price}
+                </Text>
               </LinearGradient>
             </MaskedView>
           </View>
