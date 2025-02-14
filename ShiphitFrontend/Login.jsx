@@ -52,10 +52,7 @@ export default function Login() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#6246D2" }}>
       <View style={styles.signuppage}>
         <View style={styles.signup}>
-          <Image
-            source={require("./assets/signup.png")}
-            style={styles.signupimage}
-          />
+          <Image source={require("./assets/signup.png")} style={styles.signupimage} />
         </View>
 
         {/* Login Section */}
