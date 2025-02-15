@@ -44,18 +44,18 @@ export default function Courierpickupdetails() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{ flex: 1, padding:3 }}>
+    <SafeAreaView style={{ flex: 1, padding:8 }}>
       <ScrollView>
         <View style={styles.fullcontent}>
           <View style={styles.Courierpage}>
             <View style={styles.Courier}>
-              <Text style={styles.pickup}>    Pickup details</Text>
+              <Text style={styles.pickup}> Pickup details</Text>
 
               <View style={styles.btn1}>
                 <View style={styles.container}>
                   <TextInput
                     style={styles.input}
-                    placeholder="Default Label"
+                    placeholder="Full name"
                     value={text}
                     onChangeText={setText}
                   />
@@ -64,7 +64,7 @@ export default function Courierpickupdetails() {
               <View style={styles.btn2}>
                 <TextInput
                   style={styles.inputone}
-                  placeholder="Default Label"
+                  placeholder="Enter Pickup address"
                   value={text}
                   onChangeText={setText}
                 />
@@ -76,7 +76,7 @@ export default function Courierpickupdetails() {
               <View style={styles.btn3}>
                 <TextInput
                   style={styles.inputone}
-                  placeholder="Default Label"
+                  placeholder="Mobile number"
                   value={text}
                   onChangeText={setText}
                 />
@@ -85,7 +85,7 @@ export default function Courierpickupdetails() {
                 </View>
               </View>
 
-              <Text style={styles.saveaddressas}>    Save address as</Text>
+              <Text style={styles.saveaddressas}> Save address as</Text>
               <View style={styles.contents}>
                 <View style={styles.btn4}>
                   <TouchableOpacity
@@ -129,13 +129,13 @@ export default function Courierpickupdetails() {
 
           <View style={styles.Courierpage}>
             <View style={styles.Courier}>
-              <Text style={styles.pickup}>    Delivery details</Text>
+              <Text style={styles.pickup}> Delivery details</Text>
 
               <View style={styles.btn1}>
                 <View style={styles.container}>
                   <TextInput
                     style={styles.input}
-                    placeholder="Default Label"
+                    placeholder="Full name"
                     value={text}
                     onChangeText={setText}
                   />
@@ -144,7 +144,7 @@ export default function Courierpickupdetails() {
               <View style={styles.btn2}>
                 <TextInput
                   style={styles.inputone}
-                  placeholder="Default Label"
+                  placeholder="Enter Pickup address"
                   value={text}
                   onChangeText={setText}
                 />
@@ -156,7 +156,7 @@ export default function Courierpickupdetails() {
               <View style={styles.btn3}>
                 <TextInput
                   style={styles.inputone}
-                  placeholder="Default Label"
+                  placeholder="Mobile number"
                   value={text}
                   onChangeText={setText}
                 />
@@ -165,7 +165,7 @@ export default function Courierpickupdetails() {
                 </View>
               </View>
 
-              <Text style={styles.saveaddressas}>    Save address as</Text>
+              <Text style={styles.saveaddressas}> Save address as</Text>
               <View style={styles.contents}>
                 <View style={styles.btn4}>
                   <TouchableOpacity
@@ -208,7 +208,7 @@ export default function Courierpickupdetails() {
           </View>
 
           <View style={styles.shipment}>
-            <Text style={styles.ship}>    Shipment type</Text>
+            <Text style={styles.ship}> Shipment type</Text>
             <View style={styles.shipmenttype}>
               <TouchableOpacity
                 style={styles.button6}
@@ -282,9 +282,13 @@ export default function Courierpickupdetails() {
             <View style={styles.click}>
               <Text style={styles.clickhere}>
                 {"     "}
-                Click here to View list of
-                <Text style={styles.lasttext}> restricted items</Text>
-              </Text>
+                Click here to View list of </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("restricteditems")}
+                >
+                  <Text style={styles.restrictedtxt}>restricted items</Text>
+                </TouchableOpacity>
+             
             </View>
           </View>
         </View>
@@ -296,47 +300,61 @@ export default function Courierpickupdetails() {
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
+    borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 20,
     padding: 10,
     borderColor: "#F6F3FC",
+    color: "#A1A0A5",
     fontSize: 18,
   },
   click: {
     fontSize: 18,
+    display:"flex",
+    flexDirection:"row",
   },
   whatitems: {
     fontSize: 17,
     borderColor: "#F6F3FC",
+    color: "#60606C",
   },
   inputone: {
     borderWidth: 1,
+    borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 20,
     padding: 10,
     borderColor: "#F6F3FC",
+    color: "#A1A0A5",
     fontSize: 18,
   },
 
   saveaddressas: {
-    fontSize: 16,
+    fontSize: 18,
+    color: "#60606C",
+    fontWeight: "300",
   },
   pickup: {
     fontWeight: "700",
     fontSize: 20,
     paddingVertical: 15,
+    color: "#05040B",
   },
   delivery: {
     fontWeight: "700",
     fontSize: 16,
   },
   ship: {
-    fontSize: 16,
+    fontWeight: "400",
+    fontSize: 17,
+    borderColor: "#F6F3FC",
+    color: "#60606C",
   },
   suggestion: {
-    fontWeight: "600",
+    fontWeight: "500",
     fontSize: 18,
     paddingBottom: 5,
+    color: "#29282C",
   },
   button: {
     backgroundColor: "white",
@@ -378,21 +396,27 @@ const styles = StyleSheet.create({
     height: 30,
     borderWidth: 1,
     borderColor: "#F6F3FC",
-    fontSize: 16,
+    color: "#60606C",
+    fontWeight: "500",
+    fontSize: 18,
   },
   buttonText2: {
     borderColor: "#F6F3FC",
+    color: "#60606C",
+    fontWeight: "500",
     width: 70,
     height: 30,
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: 18,
   },
   buttonText3: {
     borderColor: "#F6F3FC",
+    color: "#60606C",
+    fontWeight: "500",
     width: 70,
     height: 30,
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: 18,
   },
 
   btn1: {
@@ -400,6 +424,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingHorizontal: 25,
     paddingVertical: 13,
+    borderRadius: 2,
   },
   btn2: {
     width: "100%",
@@ -407,14 +432,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 3,
     paddingTop: 15,
+    borderRadius: 2,
   },
   btn3: {
     width: "100%",
     backgroundColor: "white",
     paddingHorizontal: 25,
+    borderRadius: 2,
   },
   buttonText7: {
     fontSize: 14,
+    color: "#29282C",
+    fontWeight: "400",
   },
   btn13: {
     width: "99%",
@@ -433,7 +462,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     paddingLeft: 3,
-    gap:7,
+    gap: 7,
   },
   btn5: {
     width: "100%",
@@ -531,16 +560,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   buttonText4: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "bold",
+    color: "#000000",
   },
   buttonText5: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "bold",
+    color: "#000000",
   },
   buttonText6: {
     color: "blue",
     fontSize: 18,
+    height: 25,
   },
   itemlist: {
     width: "100%",
@@ -550,5 +582,13 @@ const styles = StyleSheet.create({
   clickhere: {
     fontSize: 16,
   },
+  restrictedtxt: {
+    fontSize: 17,
+    paddingHorizontal:8,
+    color:"#6246D2",
+    position:"relative",
+    right:6,
 
+    
+  },
 });

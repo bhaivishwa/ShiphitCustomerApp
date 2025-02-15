@@ -15,7 +15,6 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import dataset from "./utilities/restrictedItems";
 
 export default function Restricteditems() {
-  const [phone, setPhone] = useState("");
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -77,7 +76,10 @@ export default function Restricteditems() {
               {d.subtitles.map((d) => (
                 <>
                   <View style={styles.wrongimg}>
-                    <Image source={require("./assets/wrong.png")} style={styles.wrong}/>
+                    <Image
+                      source={require("./assets/wrong.png")}
+                      style={styles.wrong}
+                    />
                     <Text style={styles.text1}>{d}</Text>
                   </View>
                 </>
