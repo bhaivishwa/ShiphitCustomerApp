@@ -18,15 +18,15 @@ import Trackingpage from "./Trackingpage";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import SuccessScreen from "./Layouts/SuccessScreen";
 
 export default function App() {
   const Stack = createStackNavigator();
-
   return true ? ( // ✅ Correct JSX syntax for conditional rendering
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Profile"
+          initialRouteName="Trackingpage"
           screenOptions={{ headerShown: false, animation: "slide_from_right" }} // ✅ Enables left-to-right transition
         >
           <Stack.Screen name="Home" component={HomeScreen} />
@@ -46,14 +46,14 @@ export default function App() {
           <Stack.Screen name="Homeaddress" component={Homeaddress} />
           <Stack.Screen name="Entercomplete" component={Entercomplete} />
           <Stack.Screen name="Notification" component={Notification} />
-          <Stack.Screen name="Trackingpage" component={Trackingpage}/>
+          <Stack.Screen name="Trackingpage" component={Trackingpage} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
   ) : (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Profile"
+        initialRouteName="Signup"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Otp" component={Otp} />

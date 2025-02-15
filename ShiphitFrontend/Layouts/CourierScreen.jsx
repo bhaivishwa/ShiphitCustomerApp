@@ -4,7 +4,9 @@ import {
   ScrollView,
   Image,
   Animated,
+  Modal,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import tw from "tailwind-react-native-classnames";
@@ -18,6 +20,8 @@ import ThingsCanship from "./ThingsCanship";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { useNavigation } from "@react-navigation/native";
+import { FlatList } from "react-native-gesture-handler";
+import Entypo from "@expo/vector-icons/Entypo";
 
 const CourierScreen = () => {
   const [isOn, setIsOn] = useState(true); // Default: "Yes"
@@ -32,7 +36,35 @@ const CourierScreen = () => {
     }).start();
   };
   const navigation = useNavigation(); // Access navigation object
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const { width } = Dimensions.get("window");
+  const dataset = [
+    {
+      image: require(`../assets/flagsFinal/france.png`),
+      name: "france",
+      currency: "INR ₹",
+    },
+    {
+      image: require(`../assets/flagsFinal/usa.png`),
+      name: "USA",
+      currency: "USD $",
+    },
+    {
+      image: require(`../assets/flagsFinal/uk.png`),
+      name: "UK",
+      currency: "GBP £",
+    },
+    {
+      image: require(`../assets/flagsFinal/singapore.png`),
+      name: "Singapore",
+      currency: "SGD S$",
+    },
+    {
+      image: require(`../assets/flagsFinal/canada.png`),
+      name: "Canada",
+      currency: "CAD C$",
+    },
+  ];
   return (
     <View
       style={{
@@ -51,13 +83,101 @@ const CourierScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             activeOpacity={0.7}
+            style={{ padding: 10 }}
           >
             <AntDesign name="arrowleft" size={24} color="white" />
           </TouchableOpacity>
           <Text style={tw`text-white text-lg pl-4`}>Courier</Text>
         </View>
-        <View style={tw`flex-row items-center`}>
-          <Text style={tw`text-white text-lg pr-4`}>IN</Text>
+        <View style={{ flexDirection: "row", gap: 15 }}>
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            onPress={() => setModalVisible(true)}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 5,
+              }}
+            >
+              <Image source={require("../assets/flagsFinal/france.png")} />
+              <Text style={tw`text-white text-lg`}>IN</Text>
+              <AntDesign name="down" size={14} color="white" />
+            </View>
+          </TouchableOpacity>
+          <Modal
+            visible={modalVisible}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                backgroundColor: "rgba(0,0,0,0.5)", // Dim background effect
+              }}
+              activeOpacity={1}
+              onPress={() => setModalVisible(false)}
+            >
+              <View
+                style={{
+                  position: "absolute",
+                  top: 50,
+                  right: 20,
+                  backgroundColor: "white",
+                  padding: 16,
+                  borderRadius: 10,
+                  alignItems: "center",
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 5,
+                  elevation: 5, // Shadow for Android
+                }}
+              >
+                <FlatList
+                  data={dataset}
+                  keyExtractor={(item) => item.name}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => setModalVisible(false)}>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          marginVertical: 13,
+                          width: 300,
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {/* Flag Image */}
+                        <View style={{ flexDirection: "row" }}>
+                          <Image
+                            source={item.image}
+                            style={{
+                              width: 25,
+                              height: 25,
+                              objectFit: "contain",
+                              marginRight: 10,
+                            }}
+                          />
+                          <Text style={{ fontSize: 18, fontWeight: "regular" }}>
+                            {item.name}
+                          </Text>
+                        </View>
+                        {/* Country Name & Currency */}
+                        <View>
+                          <Text style={{ fontSize: 16, color: "#000000" }}>
+                            {item.currency}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            </TouchableOpacity>
+          </Modal>
           <MaterialIcons name="help-outline" size={24} color="white" />
         </View>
       </View>
@@ -114,10 +234,7 @@ const CourierScreen = () => {
               gap: 10,
             }}
           >
-            <Image
-              style={{ width: 24, height: 24 }}
-              source={require("../assets/package.png")}
-            />
+            <Entypo name="box" size={24} color="#05040B" />
             <Text style={{ fontSize: 21, fontWeight: "600" }}>5 Kg</Text>
             <MaskedView maskElement={<Text style={styles.text}>₹8500</Text>}>
               <LinearGradient
@@ -129,8 +246,7 @@ const CourierScreen = () => {
               </LinearGradient>
             </MaskedView>
           </View>
-
-          <View>
+          <TouchableOpacity>
             <LinearGradient
               colors={["#6246D2", "#CE4FE3"]}
               start={{ x: 0, y: 0 }}
@@ -154,7 +270,7 @@ const CourierScreen = () => {
                 Next
               </Text>
             </LinearGradient>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
