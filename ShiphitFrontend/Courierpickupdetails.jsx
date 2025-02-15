@@ -44,7 +44,7 @@ export default function Courierpickupdetails() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 3 }}>
+    <SafeAreaView style={{ flex: 1, padding:3 }}>
       <ScrollView>
         <View style={styles.fullcontent}>
           <View style={styles.Courierpage}>
