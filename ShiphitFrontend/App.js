@@ -15,11 +15,10 @@ import Homeaddress from "./Homeaddress";
 import Entercomplete from "./Entercomplete";
 import Notification from "./Notification";
 import Trackingpage from "./Trackingpage";
-
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SuccessScreen from "./Layouts/SuccessScreen";
-
+import Scheduleorder from "./Scheduleorder";
 export default function App() {
   const Stack = createStackNavigator();
   return true ? ( // ✅ Correct JSX syntax for conditional rendering
@@ -27,14 +26,15 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Trackingpage"
-          screenOptions={{ headerShown: false, animation: "slide_from_right" }} // ✅ Enables left-to-right transition
+          screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Courier" component={CourierScreen} />
           <Stack.Screen
             name="Courierpickupdetails"
             component={Courierpickupdetails}
           />
+          <Stack.Screen name="restricteditems" component={Restricteditems} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Courier" component={CourierScreen} />
           <Stack.Screen name="Track" component={TrackScreen} />
           <Stack.Screen name="Restricteditems" component={Restricteditems} />
           <Stack.Screen
@@ -47,6 +47,7 @@ export default function App() {
           <Stack.Screen name="Entercomplete" component={Entercomplete} />
           <Stack.Screen name="Notification" component={Notification} />
           <Stack.Screen name="Trackingpage" component={Trackingpage} />
+          <Stack.Screen name="Scheduleorder" component={Scheduleorder} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -27,7 +27,7 @@ import dataset from "./utilities/Trackingpage";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
-export default function Courierpickupdetails() {
+export default function Trackingpage() {
   const [
     phone,
     setPhone,
@@ -51,7 +51,7 @@ export default function Courierpickupdetails() {
   
 
   return (
-    <SafeAreaView style={{ flex: 1, padding:10, }}>
+    <SafeAreaView style={{ flex: 1, padding:10, backgroundColor:"white",}}>
       <ScrollView>
         <View style={styles.fullcontent}>
           <View style={styles.Courierpage}>
@@ -62,44 +62,20 @@ export default function Courierpickupdetails() {
                     style={styles.button3}
                     onPress={() => navigation.navigate("")}
                   >
-                    <Text style={styles.buttonText1}>
-                      {" "}
-                      My Orders
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.btn11}>
-                  <TouchableOpacity
-                    style={styles.button4}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText2}>
+                   <Text style={styles.buttonText2}>
                       {" "}
                       Courier
                       <View></View>
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <View style={styles.btn12}>
-                  <TouchableOpacity
-                    style={styles.button5}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText3}>
-                      {" "}
-                      Pick up
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+             
+             
               </View>
             </View>
           </View>
 
-          <View style={styles.Courierpage}>
-            <View style={styles.Courier}>
-
+\
               <View style={styles.btn1}>
                 <View style={styles.container}>
                   <TextInput
@@ -110,17 +86,20 @@ export default function Courierpickupdetails() {
                   />
                 </View>
               </View>
-            </View>
-          </View>
           
           <View style={styles.pricecontent}>
           <Text style={styles.number}><Text style={styles.numberpad}>AWB NO</Text>:12345678065</Text>
           <View style={styles.price}>
-          <MaterialIcons name="currency-rupee" size={22.5} color="black" />
+          <MaterialIcons name="currency-rupee" size={18} color="#05040B" />
           <Text style={styles.pricenumber}>191</Text>
           </View>    
           </View>
+
+          <View style={styles.weightcontain}>
           <Text style={styles.weight}>Weight <Text style={styles.kiloweight}>12Kg |</Text> December 11, 5.48 pm</Text>
+          </View>
+
+          <View style={styles.line}></View>
 
          <View style={styles.van}> 
          <FontAwesome6 name="van-shuttle" size={24} color="#6246D2" />
@@ -161,16 +140,18 @@ export default function Courierpickupdetails() {
 }
 
 const styles = StyleSheet.create({
+
     price:{
     display:"flex",
     flexDirection:"row",
+    paddingVertical:5,
+    justifyContent:"space-evenly",
     },
     pricecontent:{
         display:"flex",
         flexDirection:"row",
-        justifyContent:"space-between",
         paddingHorizontal:20,
-        paddingVertical:20,
+        paddingVertical:5,
         },
         pricenumber:{
         fontSize:18,
@@ -184,33 +165,37 @@ const styles = StyleSheet.create({
         },
         weight:{
             fontSize:18,
-            fontWeight:"500",
+            fontWeight:"400",
             paddingHorizontal:20,
             color:"#A1A0A5",
         },
         days:{
         fontSize:18,
-        fontWeight:"310",
+        fontWeight:"500",
         color:"#6246D2",
+        backgroundColor:"#F6F3FC",
         },
-      
         van:{   
        display:"flex",
        flexDirection:"row",
-       paddingHorizontal:20,
-       gap:10,
+       gap:8,
        paddingVertical:20,
-       height:70,
+       marginLeft:18,
+       marginTop:10,
        width:"65%",
+       backgroundColor:"#F6F3FC",
+       alignItems:"center",
+       justifyContent:"center"
+    
         },
       map:{
       paddingHorizontal:40,
-      paddingVertical:20,
-      gap:10,
+      paddingVertical:10,
+      gap:5,
       },
       shipped:{
       paddingHorizontal:20,
-      paddingVertical:20,
+      paddingVertical:5,
       fontWeight:"500",
       fontSize:18,
       color:"#05040B",
@@ -219,7 +204,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:20,
       paddingVertical:3,
       fontWeight:"400",
-      fontSize:18,
+      fontSize:17,
       color:"#60606C",
       },
       text1:{
@@ -237,59 +222,35 @@ const styles = StyleSheet.create({
       },
       numberpad:{
       color:"#A1A0A5",
-      fontWeight:"500",
+      fontWeight:"400",
       },
     
 
   input: {
-    borderWidth: 2,
+    borderWidth:1,
     paddingVertical: 20,
-    padding: 10,
-    borderColor: "lightgrey",
+    backgroundColor:"#FFFFFF",
     fontSize: 18,
-    color:"#A1A0A5",
+    padding:15,
+    borderColor:"#F6F3FC",
     fontWeight:"500",
   },
   contents: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 5,
     paddingVertical: 10,
     paddingHorizontal: 30,
-    marginRight: 20,
-    alignSelf: "center",
-    width: "100%",
   },
-  buttonText1: {
-    width: 100,
-    height: 30,
-    borderColor: "#F6F3FC",
-    color:"#60606C",
-    fontSize: 18,
-  },
+ 
   buttonText2: {
     borderColor: "#F6F3FC",
-    width: 70,
-    height: 30,
-    color:"#6246D2",
-    fontSize: 18,
-    borderBottomWidth: 2, 
-    borderBottomColor: "#6246D2",
-    paddingBottom: 5,
+    color:"#9C4BDB",
+    fontSize: 18,    
   },
-  buttonText3: {
-    borderColor: "#F6F3FC",
-    width: 70,
-    height: 30,
-    color:"#60606C",
-    fontSize: 18,
-  },
+
 
   btn1: {
     width: "100%",
-    paddingHorizontal: 25,
-    paddingVertical: 13,
+    paddingHorizontal:15,
+    paddingVertical: 10,
   },
   btn2: {
     width: "100%",
@@ -298,6 +259,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingTop: 15,
   },
+ 
 
   
 
