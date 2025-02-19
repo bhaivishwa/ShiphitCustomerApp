@@ -22,8 +22,8 @@ export default function Profile() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+    <SafeAreaView style={{ flex: 1, position: "relative" }}>
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.Profilepage}>
           <Text style={styles.Profilefont}> Hey there!</Text>
           <Text style={styles.fontone}>Edit</Text>
@@ -75,25 +75,23 @@ export default function Profile() {
           </View>
           <AntDesign name="right" size={24} color="#60606C" />
         </TouchableOpacity>
+      </ScrollView>
 
-       
-       
-        <View style={styles.logout}>
+      <View style={styles.logout}>
         <TouchableOpacity
           style={styles.logoutbtnone}
           onPress={() => navigation.navigate("")}
         >
           <View style={styles.Logoutt}>
-          <Image source={require("./assets/exit.png")} style={styles.wrong} />
+            <Image source={require("./assets/exit.png")} style={styles.wrong} />
             <Text style={styles.logouttxt}>Logout</Text>
           </View>
+          <View>
+            <Text style={styles.appversion}>App version 1.0.0</Text>
+          </View>
         </TouchableOpacity>
-        </View>
-   
-        <View>
-          <Text style={styles.appversion}>App version 1.0.0</Text>
-        </View>
-      </ScrollView>
+      </View>
+
     </SafeAreaView>
   );
 }
@@ -148,24 +146,20 @@ const styles = StyleSheet.create({
     right: 30,
   },
   logout: {
-    display: "flex",
-    flexDirection: "row",
     paddingHorizontal: 30,
     paddingVertical: 30,
     alignSelf: "center",
-    height:"53%",
+    position: "absolute",
+    bottom: 0,    
   },
   appversion: {
     display: "flex",
     flexDirection: "row",
-    paddingHorizontal: 30,
-    paddingVertical: 30,
     alignSelf: "center",
     color: "#A1A0A5",
-    height:140,
   },
   buttonText: {
-    color:"#60606C",
+    color: "#60606C",
     paddingRight: 30,
     marginRight: 30,
     fontSize: 18,
@@ -178,17 +172,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 25,
   },
-  shipmentone:{
-    display:"flex",
-    flexDirection:"row",
-    gap:18,
+  shipmentone: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 18,
   },
-  Logoutt:{
-    display:"flex",
-    flexDirection:"row",
+  Logoutt: {
+    display: "flex",
+    flexDirection: "row",
+    paddingHorizontal:20,
+    paddingBottom:40,
   },
-  logouttxt:{
-    color:"#E34F65",
-  },
+  logouttxt: {
+    color: "#E34F65",
 
+  },
 });

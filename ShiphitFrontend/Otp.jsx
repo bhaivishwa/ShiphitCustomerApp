@@ -16,12 +16,11 @@ import { useRoute } from "@react-navigation/native";
 import { OtpInput } from "react-native-otp-entry";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
-
 export default function Otp() {
   const navigation = useNavigation();
   const route = useRoute();
   const [otpValue, setotpValue] = useState("");
-  const { name, countryCode, phonenumber } = route.params || {}; // Get the phone number
+  const { name, countryCode, phonenumber, service } = route.params || {}; // Get the phone number
 
   const verifyOTP = async (phonenumber, otp) => {
     console.log(`+${countryCode}${phonenumber}`);
@@ -37,6 +36,7 @@ export default function Otp() {
       );
     }
   };
+
   async function addUserToDB(name, countryCode, phonenumber) {
     try {
       const response = await axios.post(
@@ -70,18 +70,31 @@ export default function Otp() {
   }
 
   const handleSubmit = async () => {
-    try {
-      console.log("Verifying OTP...");
+    if (service == "signUpOtp") {
+      try {
+        const otpVerificationResult = await verifyOTP(phonenumber, otpValue);
+        if (!otpVerificationResult.success) {
+          console.error("OTP verification failed!");
+          return;
+        }
+        const userResponse = await addUserToDB(name, countryCode, phonenumber); // Replace "Nithish" with dynamic name
+        console.log("User successfully added:", userResponse);
+        navigation.navigate("Home");
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+      return;
+    }
+
+    if (service == "loginOtp") {
+      console.log("Login otp");
       const otpVerificationResult = await verifyOTP(phonenumber, otpValue);
       if (!otpVerificationResult.success) {
         console.error("OTP verification failed!");
         return;
       }
-      const userResponse = await addUserToDB(name, countryCode, phonenumber); // Replace "Nithish" with dynamic name
-      console.log("User successfully added:", userResponse);
       navigation.navigate("Home");
-    } catch (error) {
-      console.error("Error:", error.message);
+      return;
     }
   };
 

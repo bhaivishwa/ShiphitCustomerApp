@@ -32,6 +32,7 @@ export default function Courierpickupdetails() {
     isOn,
     setIsOn,
   ] = useState("");
+
   const InputDropdown = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
@@ -44,7 +45,7 @@ export default function Courierpickupdetails() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 3 }}>
+    <SafeAreaView style={{ flex: 1, padding:3 }}>
       <ScrollView>
         <View style={styles.fullcontent}>
           <View style={styles.Courierpage}>
