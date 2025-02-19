@@ -18,7 +18,7 @@ import Trackingpage from "./Trackingpage";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SuccessScreen from "./Layouts/SuccessScreen";
-
+import Scheduleorder from "./Scheduleorder";
 export default function App() {
   const Stack = createStackNavigator();
   return true ? ( // ✅ Correct JSX syntax for conditional rendering
@@ -47,6 +47,7 @@ export default function App() {
           <Stack.Screen name="Entercomplete" component={Entercomplete} />
           <Stack.Screen name="Notification" component={Notification} />
           <Stack.Screen name="Trackingpage" component={Trackingpage} />
+          <Stack.Screen name="Scheduleorder" component={Scheduleorder} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

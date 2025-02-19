@@ -20,6 +20,8 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import RNPickerSelect from "react-native-picker-select";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Entypo from "@expo/vector-icons/Entypo";
+import Scheduleorder from "./Scheduleorder";
 
 export default function Courierpickupdetails() {
   const [
@@ -32,19 +34,11 @@ export default function Courierpickupdetails() {
     isOn,
     setIsOn,
   ] = useState("");
-  const InputDropdown = () => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-      { label: "Apple 🍎", value: "apple" },
-      { label: "Banana 🍌", value: "banana" },
-      { label: "Orange 🍊", value: "orange" },
-    ]);
-  };
+
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{ flex: 1, padding:8 }}>
+    <SafeAreaView style={{ flex: 1, padding: 8,}}>
       <ScrollView>
         <View style={styles.fullcontent}>
           <View style={styles.Courierpage}>
@@ -206,22 +200,22 @@ export default function Courierpickupdetails() {
               </View>
             </View>
           </View>
-
+          <Scheduleorder/>
           <View style={styles.shipment}>
-            <Text style={styles.ship}> Shipment type</Text>
+            <Text style={styles.ship}>Shipment type</Text>
             <View style={styles.shipmenttype}>
               <TouchableOpacity
                 style={styles.button6}
                 onPress={() => navigation.navigate("")}
               >
-                <Text style={styles.buttonText4}> Commercial</Text>
+                <Text style={styles.buttonText7}> Commercial</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.button7}
                 onPress={() => navigation.navigate("")}
               >
-                <Text style={styles.buttonText5}> Non-Commercial</Text>
+                <Text style={styles.buttonText8}> Non-Commercial</Text>
               </TouchableOpacity>
             </View>
 
@@ -243,38 +237,38 @@ export default function Courierpickupdetails() {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.lastcontent}>
+            <View style={styles.contentthree}>
               <Text style={styles.suggestion}> Suggestions</Text>
-              <View style={styles.btn14}>
+              <View style={styles.btn15}>
                 <TouchableOpacity
-                  style={styles.button9}
+                  style={styles.button12}
                   onPress={() => navigation.navigate("")}
                 >
-                  <Text style={styles.buttonText7}>Dress</Text>
+                  <Text style={styles.buttonText12}>Dress</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.button9}
+                  style={styles.button12}
                   onPress={() => navigation.navigate("")}
                 >
-                  <Text style={styles.buttonText7}>Snacks</Text>
+                  <Text style={styles.buttonText12}>Snacks</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.button9}
+                  style={styles.button12}
                   onPress={() => navigation.navigate("")}
                 >
-                  <Text style={styles.buttonText7}>Photos</Text>
+                  <Text style={styles.buttonText12}>Photos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.button9}
+                  style={styles.button12}
                   onPress={() => navigation.navigate("")}
                 >
-                  <Text style={styles.buttonText7}>Medicines</Text>
+                  <Text style={styles.buttonText12}>Medicines</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.button9}
+                  style={styles.button12}
                   onPress={() => navigation.navigate("")}
                 >
-                  <Text style={styles.buttonText7}>Sweets</Text>
+                  <Text style={styles.buttonText12}>Sweets</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -282,13 +276,13 @@ export default function Courierpickupdetails() {
             <View style={styles.click}>
               <Text style={styles.clickhere}>
                 {"     "}
-                Click here to View list of </Text>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("restricteditems")}
-                >
-                  <Text style={styles.restrictedtxt}>restricted items</Text>
-                </TouchableOpacity>
-             
+                Click here to View list of{" "}
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Restricteditems")}
+              >
+                <Text style={styles.restrictedtxt}>restricted items</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -298,6 +292,7 @@ export default function Courierpickupdetails() {
 }
 
 const styles = StyleSheet.create({
+
   input: {
     borderWidth: 1,
     borderRadius: 8,
@@ -305,13 +300,15 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     padding: 10,
     borderColor: "#F6F3FC",
-    color: "#A1A0A5",
-    fontSize: 18,
+    fontSize: 16,
+    color:"#A1A0A5",
+    fontWeight:"500",
   },
   click: {
     fontSize: 18,
-    display:"flex",
-    flexDirection:"row",
+    display: "flex",
+    flexDirection: "row",
+    marginTop:8,
   },
   whatitems: {
     fontSize: 17,
@@ -325,20 +322,23 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     padding: 10,
     borderColor: "#F6F3FC",
-    color: "#A1A0A5",
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight:"500",
+    color:"#A1A0A5"
   },
 
   saveaddressas: {
-    fontSize: 18,
-    color: "#60606C",
-    fontWeight: "300",
+    fontSize: 16,
+    color: "#CCCCCC",
+    fontWeight: "500",
+    paddingHorizontal:5,
   },
   pickup: {
     fontWeight: "700",
-    fontSize: 20,
+    fontSize: 18,
     paddingVertical: 15,
     color: "#05040B",
+    paddingHorizontal:7,
   },
   delivery: {
     fontWeight: "700",
@@ -346,15 +346,17 @@ const styles = StyleSheet.create({
   },
   ship: {
     fontWeight: "400",
-    fontSize: 17,
-    borderColor: "#F6F3FC",
-    color: "#60606C",
+    fontSize: 18,
+    color:"#676D76",
+    paddingHorizontal:10,
   },
   suggestion: {
     fontWeight: "500",
     fontSize: 18,
     paddingBottom: 5,
     color: "#29282C",
+    paddingVertical: 15,
+    paddingHorizontal:-3,
   },
   button: {
     backgroundColor: "white",
@@ -382,41 +384,49 @@ const styles = StyleSheet.create({
   contents: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 5,
+    padding:5,
     paddingVertical: 10,
-    paddingHorizontal: 30,
-    marginRight: 20,
     backgroundColor: "white",
-    alignSelf: "center",
-    width: "100%",
+    justifyContent:"space-evenly",  
+    borderRadius:3,  
   },
   buttonText1: {
-    width: 70,
-    height: 30,
+    padding:10,
     borderWidth: 1,
     borderColor: "#F6F3FC",
     color: "#60606C",
     fontWeight: "500",
     fontSize: 18,
+    borderRadius:5,
+  },
+  buttonText12: {
+    borderWidth: 1,
+    borderColor: "#60606c",
+    color: "#60606C",
+    fontWeight: "500",
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+    borderRadius: 5,
   },
   buttonText2: {
     borderColor: "#F6F3FC",
     color: "#60606C",
     fontWeight: "500",
-    width: 70,
-    height: 30,
+    padding:10,
     borderWidth: 1,
     fontSize: 18,
+    borderRadius:5,
   },
   buttonText3: {
     borderColor: "#F6F3FC",
     color: "#60606C",
     fontWeight: "500",
-    width: 70,
-    height: 30,
+    padding:10,
     borderWidth: 1,
     fontSize: 18,
+    borderRadius:5,
   },
 
   btn1: {
@@ -440,21 +450,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 2,
   },
-  buttonText7: {
-    fontSize: 14,
-    color: "#29282C",
-    fontWeight: "400",
-  },
   btn13: {
-    width: "99%",
-    paddingHorizontal: 15,
     paddingLeft: 5,
-    display: "flex",
-    flexDirection: "row",
     borderWidth: 1,
     marginTop: 10,
     borderColor: "#CCC3D1",
     borderRadius: 8,
+    color:"#F6F3FC",
   },
   btn14: {
     width: "100%",
@@ -516,34 +518,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
   },
-  button9: {
-    backgroundColor: "#F6F3FC",
-    paddingVertical: 10,
-    marginTop: 5,
-    width: "22%",
-    borderRadius: 5,
-    alignItems: "center",
-    borderWidth: 1,
-    position: "relative",
-    right: 13,
-    borderColor: "#60606C",
-  },
+
   shipmenttype: {
     display: "flex",
     flexDirection: "row",
     padding: 5,
     gap: 8,
   },
-  lastcontent: {
-    paddingTop: 15,
-    width: "100%",
-    rowGap: 5,
-    height: 110,
-    backgroundColor: "#F6F3FC",
-    paddingHorizontal: 18,
-    marginBottom: 11,
-    marginTop: 13,
-  },
+
   lasttext: {
     color: "blue",
     fontSize: 18,
@@ -555,6 +537,7 @@ const styles = StyleSheet.create({
 
   shipment: {
     backgroundColor: "white",
+    paddingVertical: 10,
   },
   fullcontent: {
     backgroundColor: "white",
@@ -570,25 +553,160 @@ const styles = StyleSheet.create({
     color: "#000000",
   },
   buttonText6: {
-    color: "blue",
+    color: "#A54CDD",
     fontSize: 18,
-    height: 25,
+    height: 28,
   },
   itemlist: {
     width: "100%",
     borderRadius: "30",
-    paddingHorizontal: 20,
+    paddingHorizontal:10,
   },
   clickhere: {
     fontSize: 16,
+    color:"#60606C",
+    fontWeight:"400",
   },
   restrictedtxt: {
     fontSize: 17,
-    paddingHorizontal:8,
-    color:"#6246D2",
-    position:"relative",
-    right:6,
+    paddingHorizontal: 8,
+    color: "#6246D2",
+    position: "relative",
+    right: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: "#6246D2",
+  },
+  choosedate: {
+    color: "#2D5E63",
+    paddingVertical: 10,
+    fontWeight: "600",
+    fontSize: 17,
+  },
+  choosedate1: {
+    color: "#2D5E63",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    fontWeight: "600",
+    fontSize: 17,
+  },
 
+  datesandtime: {
+    borderWidth: 1,
+    height: 70,
+    width: 55,
+    justifyContent: "center",
+    paddingHorizontal: 12,
+  },
+  timedatebox: {
+    paddingHorizontal: 20,
+  },
+  schedulebox: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  button9: {
+    backgroundColor: "#F6F3FC",
+    paddingVertical: 10,
+    marginTop: 5,
+    width: "18%",
+    borderRadius: 5,
+    alignItems: "center",
+    borderWidth: 2,
+    position: "relative",
+    right: 13,
+    borderColor: "#60606C",
+  },
+  buttonText7: {
+    fontSize: 16,
+    color: "#333333",
+    fontWeight: "600",
+  },
+  buttonText8:{
+    fontSize: 16,
+    color: "#333333",
+    fontWeight: "600",
+  },
+  lastcontent: {
+    paddingVertical: 10,
+    width: "100%",
+    paddingHorizontal: 15,
+    backgroundColor: "white",
+  },
+  btn14: {
+    width: "100%",
+    paddingHorizontal: 35,
+    display: "flex",
+    flexDirection: "row",
+    paddingLeft: 3,
+    gap: 7,
+    height: 100,
+  },
+  btn15: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 7,
+    height: 60,
+    marginTop:10,
+  },
+  contentsone: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingVertical: 13,
+    alignSelf: "center",
+    gap: 8,
+    alignItems: "center",
+    borderBottomWidth: 1,
+  },
+  buttonText4: {
+    color: "#60606C",
+    fontWeight: "500",
+    borderRadius: 5,
+    padding: 8,
+    borderWidth: 2,
+    fontSize: 18,
+  },
+  buttonText5: {
+    color: "#60606C",
+    fontWeight: "500",
+    borderRadius: 5,
+    padding: 8,
+    borderWidth: 2,
+    fontSize: 18,
+  },
+  contenttwo: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 30,
+  },
+  button10: {
+    paddingVertical: 10,
+    marginTop: 5,
+    width: "27%",
+    borderRadius: 5,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#60606C",
+    color: "#FFFFFF",
+  },
+  button11: {
+    paddingVertical: 10,
+    marginTop: 5,
+    width: "27%",
+    marginLeft: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#60606C",
+  },
+  timingcontent: {
+    paddingTop: 20,
+  },
+  contentthree: {
+    paddingHorizontal:12,
+    backgroundColor:"#F6F3FC",
+    marginTop:15,
     
   },
 });
