@@ -25,7 +25,6 @@ import { style } from "twrnc";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import dataset from "./utilities/Trackingpage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-
 export default function Trackingpage() {
   const [
     phone,
@@ -37,9 +36,7 @@ export default function Trackingpage() {
     isOn,
     setIsOn,
   ] = useState("");
-
   const navigation = useNavigation();
-
   return (
     <SafeAreaView style={{ flex: 1, padding: 15, backgroundColor: "#FBF5FF" }}>
       <ScrollView style={{ backgroundColor: "white" }}>
@@ -72,7 +69,6 @@ export default function Trackingpage() {
               </View>
             </View>
           </View>
-
           <View style={styles.containertwo}>
             <View style={styles.pricecontent}>
               <Text style={styles.number}>
@@ -93,13 +89,11 @@ export default function Trackingpage() {
                 11, 5.48 pm
               </Text>
             </View>
-
             <View style={styles.van}>
               <FontAwesome6 name="van-shuttle" size={24} color="#6246D2" />
               <Text style={styles.days}>Economy (4 - 6 days)</Text>
               <View></View>
             </View>
-
             <View style={styles.orderplaced}>
               {dataset.map((d) => (
                 <View style={styles.map}>
@@ -213,28 +207,28 @@ const styles = StyleSheet.create({
     color: "#A1A0A5",
     fontWeight: "400",
   },
-  input: {
-    borderWidth: 1,
-    paddingVertical: 20,
-    backgroundColor: "#FFFFFF",
-    fontSize: 18,
-    padding: 15,
-    borderColor: "#F6F3FC",
-    borderRadius: 8,
-    fontWeight: "500",
+  input:{
+    borderWidth:1,
+    paddingVertical:20,
+    backgroundColor:"#FFFFFF",
+    fontSize:18,
+    padding:15,
+    borderColor:"#F6F3FC",
+    borderRadius:8,
+    fontWeight:"500",
   },
   contents: {
-    paddingVertical: 10,
+    paddingVertical:10,
   },
-  buttonText2: {
-    borderColor: "#F6F3FC",
-    color: "#9C4BDB",
-    fontSize: 18,
-    paddingTop: 15,
-    paddingHorizontal: 8,
-    marginBottom: 5,
+  buttonText2:{
+    borderColor:"#F6F3FC",
+    color:"#9C4BDB",
+    fontSize:18,
+    paddingTop:15,
+    paddingHorizontal:8,
+    marginBottom:5,
   },
   btn1: {
-    paddingVertical: 10,
+    paddingVertical:10,
   },
 });
