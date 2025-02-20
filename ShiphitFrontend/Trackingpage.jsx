@@ -47,8 +47,7 @@ export default function Trackingpage() {
                 <View style={styles.btn4}>
                   <TouchableOpacity
                     style={styles.button3}
-                    onPress={() => navigation.navigate("")}
-                  >
+                    onPress={() => navigation.navigate("")} >
                     <Text style={styles.buttonText2}>
                       {" "}
                       Courier
@@ -122,9 +121,9 @@ export default function Trackingpage() {
   );
 }
 const styles = StyleSheet.create({
-  containertwo: {
-    paddingHorizontal: 10,
-    marginTop: 15,
+  containertwo:{
+    paddingHorizontal:10,
+    marginTop:15,
   },
   price: {
     display: "flex",
