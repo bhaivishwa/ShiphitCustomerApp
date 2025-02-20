@@ -25,7 +25,6 @@ import { style } from "twrnc";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import dataset from "./utilities/Trackingpage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-
 export default function Trackingpage() {
   const [
     phone,
@@ -37,9 +36,7 @@ export default function Trackingpage() {
     isOn,
     setIsOn,
   ] = useState("");
-
   const navigation = useNavigation();
-
   return (
     <SafeAreaView style={{ flex: 1, padding: 15, backgroundColor: "#FBF5FF" }}>
       <ScrollView style={{ backgroundColor: "white" }}>
@@ -50,8 +47,7 @@ export default function Trackingpage() {
                 <View style={styles.btn4}>
                   <TouchableOpacity
                     style={styles.button3}
-                    onPress={() => navigation.navigate("")}
-                  >
+                    onPress={() => navigation.navigate("")} >
                     <Text style={styles.buttonText2}>
                       {" "}
                       Courier
@@ -71,8 +67,7 @@ export default function Trackingpage() {
                 />
               </View>
             </View>
-          </View>
-
+          </View
           <View style={styles.containertwo}>
             <View style={styles.pricecontent}>
               <Text style={styles.number}>
@@ -93,13 +88,11 @@ export default function Trackingpage() {
                 11, 5.48 pm
               </Text>
             </View>
-
             <View style={styles.van}>
               <FontAwesome6 name="van-shuttle" size={24} color="#6246D2" />
               <Text style={styles.days}>Economy (4 - 6 days)</Text>
               <View></View>
             </View>
-
             <View style={styles.orderplaced}>
               {dataset.map((d) => (
                 <View style={styles.map}>
@@ -128,9 +121,9 @@ export default function Trackingpage() {
   );
 }
 const styles = StyleSheet.create({
-  containertwo: {
-    paddingHorizontal: 10,
-    marginTop: 15,
+  containertwo:{
+    paddingHorizontal:10,
+    marginTop:15,
   },
   price: {
     display: "flex",
