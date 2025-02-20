@@ -51,8 +51,8 @@ export default function Trackingpage() {
   
 
   return (
-    <SafeAreaView style={{ flex: 1, padding:10, backgroundColor:"white",}}>
-      <ScrollView>
+    <SafeAreaView style={{ flex: 1, padding:15, backgroundColor:"#FBF5FF",}}>
+      <ScrollView style={{backgroundColor:"white"}}>
         <View style={styles.fullcontent}>
           <View style={styles.Courierpage}>
             <View style={styles.Courier}>
@@ -69,13 +69,8 @@ export default function Trackingpage() {
                     </Text>
                   </TouchableOpacity>
                 </View>
-             
-             
               </View>
             </View>
-          </View>
-
-\
               <View style={styles.btn1}>
                 <View style={styles.container}>
                   <TextInput
@@ -86,20 +81,21 @@ export default function Trackingpage() {
                   />
                 </View>
               </View>
+              </View>
           
+
+          <View style={styles.containertwo}>
           <View style={styles.pricecontent}>
-          <Text style={styles.number}><Text style={styles.numberpad}>AWB NO</Text>:12345678065</Text>
+          <Text style={styles.number}><Text style={styles.numberpad}>AWB NO</Text>: 12345678065</Text>
           <View style={styles.price}>
           <MaterialIcons name="currency-rupee" size={18} color="#05040B" />
           <Text style={styles.pricenumber}>191</Text>
           </View>    
           </View>
-
           <View style={styles.weightcontain}>
           <Text style={styles.weight}>Weight <Text style={styles.kiloweight}>12Kg |</Text> December 11, 5.48 pm</Text>
           </View>
 
-          <View style={styles.line}></View>
 
          <View style={styles.van}> 
          <FontAwesome6 name="van-shuttle" size={24} color="#6246D2" />
@@ -108,7 +104,7 @@ export default function Trackingpage() {
          </View>
          </View>
 
-         <View>
+         <View style={styles.orderplaced}>
           {dataset.map((d) => (
             <View style={styles.map}>
               <View>
@@ -122,25 +118,23 @@ export default function Trackingpage() {
             </View>
           ))}
         </View>
-
-        <View>
+        <View style={styles.shippedto}>
         <Text style={styles.shipped}>Shipped To</Text>
         <Text style={styles.address}>2nd floor, Mohan business park, Don bosco school,
               Saravanampatti, Thudiyalur.
         </Text>
+        </View>  
         </View>
-
-         
-
-        
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
-
+  containertwo:{
+    paddingHorizontal:10,
+    marginTop:15,
+  },
     price:{
     display:"flex",
     flexDirection:"row",
@@ -150,13 +144,15 @@ const styles = StyleSheet.create({
     pricecontent:{
         display:"flex",
         flexDirection:"row",
-        paddingHorizontal:20,
         paddingVertical:5,
+        justifyContent:"space-between",
+        borderRadius:10,  
         },
         pricenumber:{
         fontSize:18,
         fontWeight:"400",
         color:"#05040B",
+        marginTop:-4,
         },
         number:{
             fontSize:18,
@@ -164,9 +160,8 @@ const styles = StyleSheet.create({
             color:"#05040B",
         },
         weight:{
-            fontSize:18,
+            fontSize:16,
             fontWeight:"400",
-            paddingHorizontal:20,
             color:"#A1A0A5",
         },
         days:{
@@ -175,33 +170,29 @@ const styles = StyleSheet.create({
         color:"#6246D2",
         backgroundColor:"#F6F3FC",
         },
-        van:{   
-       display:"flex",
+       van:{   
        flexDirection:"row",
        gap:8,
-       paddingVertical:20,
-       marginLeft:18,
-       marginTop:10,
-       width:"65%",
+       paddingVertical:8,
+       marginTop:25,
+       marginBottom:15,
+       width:"73%",
        backgroundColor:"#F6F3FC",
-       alignItems:"center",
        justifyContent:"center"
-    
         },
       map:{
-      paddingHorizontal:40,
       paddingVertical:10,
+      paddingHorizontal:30,
       gap:5,
       },
       shipped:{
-      paddingHorizontal:20,
       paddingVertical:5,
       fontWeight:"500",
       fontSize:18,
       color:"#05040B",
+      marginTop:15,
       },
       address:{ 
-        paddingHorizontal:20,
       paddingVertical:3,
       fontWeight:"400",
       fontSize:17,
@@ -219,13 +210,12 @@ const styles = StyleSheet.create({
       kiloweight:{
       fontWeight:"400",
       color:"#05040B",
+      fontSize:"15",
       },
       numberpad:{
       color:"#A1A0A5",
       fontWeight:"400",
       },
-    
-
   input: {
     borderWidth:1,
     paddingVertical: 20,
@@ -233,32 +223,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding:15,
     borderColor:"#F6F3FC",
+    borderRadius:8,
     fontWeight:"500",
   },
   contents: {
     paddingVertical: 10,
-    paddingHorizontal: 30,
   },
- 
   buttonText2: {
     borderColor: "#F6F3FC",
     color:"#9C4BDB",
     fontSize: 18,    
+    paddingTop:15,
+    paddingHorizontal:8,
+    marginBottom:5,
   },
-
-
   btn1: {
-    width: "100%",
-    paddingHorizontal:15,
     paddingVertical: 10,
   },
-  btn2: {
-    width: "100%",
-    backgroundColor: "white",
-    paddingHorizontal: 25,
-    paddingVertical: 3,
-    paddingTop: 15,
-  },
+ 
  
 
   
