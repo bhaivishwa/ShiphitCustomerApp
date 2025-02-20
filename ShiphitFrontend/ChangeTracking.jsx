@@ -25,7 +25,7 @@ import { style } from "twrnc";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import dataset from "./utilities/Trackingpage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-export default function Trackingpage() {
+export default function ChangeTracking() {
   const [
     phone,
     setPhone,
@@ -38,9 +38,11 @@ export default function Trackingpage() {
   ] = useState("");
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, padding: 15, backgroundColor: "#FBF5FF" }}>
+    <SafeAreaView style={{ flex: 1,}}>
       <ScrollView style={{ backgroundColor: "white" }}>
         <View style={styles.fullcontent}>
+
+
           <View style={styles.Courierpage}>
             <View style={styles.Courier}>
               <View style={styles.contents}>
@@ -69,59 +71,17 @@ export default function Trackingpage() {
             </View>
           </View>
 
-          <View style={styles.containertwo}>
-            <View style={styles.pricecontent}>
-              <Text style={styles.number}>
-                <Text style={styles.numberpad}>AWB NO</Text>: 12345678065
-              </Text>
-              <View style={styles.price}>
-                <MaterialIcons
-                  name="currency-rupee"
-                  size={18}
-                  color="#05040B"
-                />
-                <Text style={styles.pricenumber}>191</Text>
-              </View>
-            </View>
-            <View style={styles.weightcontain}>
-              <Text style={styles.weight}>
-                Weight <Text style={styles.kiloweight}>12Kg |</Text> December
-                11, 5.48 pm
-              </Text>
-            </View>
-            <View style={styles.van}>
-              <FontAwesome6 name="van-shuttle" size={24} color="#6246D2" />
-              <Text style={styles.days}>Economy (4 - 6 days)</Text>
-              <View></View>
-            </View>
-            <View style={styles.orderplaced}>
-              {dataset.map((d) => (
-                <View style={styles.map}>
-                  <View>
-                    <Text style={styles.category}>{d.title}</Text>
-                  </View>
-                  {d.subtitles.map((d) => (
-                    <>
-                      <Text style={styles.text1}>{d}</Text>
-                    </>
-                  ))}
-                </View>
-              ))}
-            </View>
-            <View style={styles.shippedto}>
-              <Text style={styles.shipped}>Shipped To</Text>
-              <Text style={styles.address}>
-                2nd floor, Mohan business park, Don bosco school,
-                Saravanampatti, Thudiyalur.
-              </Text>
-            </View>
-          </View>
+          
+
+
+
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+
   containertwo:{
     paddingHorizontal:10,
     marginTop:15,
@@ -232,3 +192,5 @@ const styles = StyleSheet.create({
     paddingVertical:10,
   },
 });
+
+  
