@@ -25,7 +25,7 @@ import { style } from "twrnc";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import dataset from "./utilities/Trackingpage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-export default function Trackingpage() {
+export default function () {
   const [
     phone,
     setPhone,
