@@ -7,7 +7,7 @@ const dataset = [
     title: "Shipped",
     subtitles: ["December 11, 5.48 pm"],
   },
-   {
+  {
     title: "Delivery",
     subtitles: ["Expected by December 11, 5.48 pm"],
   },
