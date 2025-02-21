@@ -6,10 +6,14 @@ import { FlatList } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { Fontisto } from "@expo/vector-icons";
 
-export default function Scheduleorder() {
-  const [Date_, setDate] = useState({});
-  const [Noon, setNoon] = useState({});
-  const [Timeslot_Value, setTimeslot_Value] = useState({});
+export default function Scheduleorder({
+  Date_,
+  setDate,
+  Noon,
+  setNoon,
+  Timeslot_Value,
+  setTimeslot_Value,
+}) {
   const dataset = [
     {
       date: "20",
@@ -139,13 +143,13 @@ export default function Scheduleorder() {
             {[
               {
                 Noontext: "Morning",
-                IconComponent: Feather,
-                iconName: "cloud",
+                IconComponent: Fontisto,
+                iconName: "day-cloudy",
               },
               {
                 Noontext: "Afternoon",
-                IconComponent: Fontisto,
-                iconName: "day-cloudy",
+                IconComponent: Feather,
+                iconName: "sun",
               },
               {
                 Noontext: "Evening",

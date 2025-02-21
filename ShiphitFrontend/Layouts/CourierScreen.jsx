@@ -1,19 +1,10 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Animated,
-  TouchableOpacity,
-} from "react-native";
+import { View, ScrollView, Animated } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import CountrySelector from "./CountrySelector";
 import Service from "./Service";
 import FrequentlyShiped from "./FrequentlyShiped";
 import PackingToggle from "./PackingToggle";
 import ThingsCanship from "./ThingsCanship";
-import { LinearGradient } from "expo-linear-gradient";
-import MaskedView from "@react-native-masked-view/masked-view";
-import Entypo from "@expo/vector-icons/Entypo";
 import axios from "axios";
 import Headers from "./Header";
 import SalesCard from "./SalesCard";
@@ -72,9 +63,7 @@ const CourierScreen = () => {
         backgroundColor: "#F6F3FC",
       }}
     >
-      {/* Header */}
       <Headers />
-      {/* Scrollable Content */}
       <ScrollView
         showsVerticalScrollIndicator={false} // Hides the scrollbar (set to true if you want it visible)
         keyboardShouldPersistTaps="handled"

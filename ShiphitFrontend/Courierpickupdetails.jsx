@@ -9,6 +9,7 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
+import SalesCard from "./Layouts/SalesCard";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
@@ -17,13 +18,23 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Scheduleorder from "./Scheduleorder";
 import { LinearGradient } from "expo-linear-gradient";
 import Header_without_currency_change from "./Layouts/Header_without_currency_change";
+import { Button } from "react-native-web";
 
 export default function Courierpickupdetails() {
-  const [text, setText] = useState("");
-  const [shipmentDetails, setshipmentDetails] = useState({});
+  const [PickUpName, setPickUpName] = useState("");
+  const [PickUpAddress, setPickUpAddress] = useState("");
+  const [PickupMobileNumber, setPickupMobileNumber] = useState("");
+
+  const [DeliveryName, setDeliveryName] = useState("");
+  const [DeliveryAddress, setDeliveryAddress] = useState("");
+  const [DeliveryMobileNumber, setDeliveryMobileNumber] = useState("");
+  const [savePickupAddress, setsavePickupAddress] = useState("");
+
   const [shipmentType, setshipmentType] = useState("");
   const [whatitems, setwhatitems] = useState([]);
   const navigation = useNavigation();
+  const [saveDeliveryAddress, setsaveDeliveryAddress] = useState("");
+
   const [suggestions, setsuggestions] = useState([
     "Dress",
     "Snacks",
@@ -31,6 +42,28 @@ export default function Courierpickupdetails() {
     "Medicines",
     "Sweets",
   ]);
+
+  const [Date_root, setDate_root] = useState({});
+  const [Noon_root, setNoon_root] = useState({});
+  const [Timeslot_Value_root, setTimeslot_Value_root] = useState({});
+
+  function HandleSubmit() {
+    console.log({
+      PickUpName: PickUpName,
+      PickUpAddress: PickUpAddress,
+      PickupMobileNumber: PickupMobileNumber,
+      savePickupAddress: savePickupAddress,
+      DeliveryName: DeliveryName,
+      DeliveryAddress: DeliveryAddress,
+      DeliveryMobileNumber: DeliveryMobileNumber,
+      saveDeliveryAddress: saveDeliveryAddress,
+      date: Date_root,
+      Noon: Noon_root,
+      Timeslot: Timeslot_Value_root,
+      shipmentType: shipmentType,
+      whatitems: whatitems,
+    });
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF" }}>
@@ -42,27 +75,34 @@ export default function Courierpickupdetails() {
               <Text style={styles.pickup}> Pickup details</Text>
               <View style={styles.input}>
                 <TextInput
-                  style={{ fontSize: 16 }}
+                  style={styles.inputContainer}
                   placeholder="Full Name"
-                  value={text}
-                  onChangeText={setText}
+                  value={PickUpName}
+                  onChangeText={(text) => {
+                    setPickUpName(text);
+                  }}
                 />
               </View>
               <View style={styles.input}>
                 <TextInput
-                  style={{ fontSize: 16 }}
+                  style={styles.inputContainer}
                   placeholder="Enter Pickup Address"
-                  value={text}
-                  onChangeText={setText}
+                  value={PickUpAddress}
+                  onChangeText={(text) => {
+                    setPickUpAddress(text);
+                  }}
                 />
                 <FontAwesome6 name="location-dot" size={25} color="#7C48D6" />
               </View>
+
               <View style={styles.input}>
                 <TextInput
-                  style={{ fontSize: 16 }}
+                  style={styles.inputContainer}
                   placeholder="Mobile Number"
-                  value={text}
-                  onChangeText={setText}
+                  value={PickupMobileNumber}
+                  onChangeText={(text) => {
+                    setPickupMobileNumber(text);
+                  }}
                 />
                 <AntDesign name="contacts" size={25} color="#7C48D6" />
               </View>
@@ -72,16 +112,30 @@ export default function Courierpickupdetails() {
                   {["Home", "Office", "Others"].map((label, index) => (
                     <LinearGradient
                       key={index}
-                      colors={["#6246D2", "#CE4FE3"]}
+                      colors={
+                        label == savePickupAddress
+                          ? ["#6246D2", "#CE4FE3"]
+                          : ["#FFFFFF", "#FFFFFF"]
+                      }
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 1 }}
                       style={styles.gradientBorder}
                     >
                       <TouchableOpacity
-                        onPress={() => navigation.navigate("")}
+                        onPress={() => setsavePickupAddress(label)}
                         style={styles.buttonContainer}
                       >
-                        <Text style={styles.buttonText}>{label}</Text>
+                        <Text
+                          style={[
+                            styles.buttonText,
+                            {
+                              color:
+                                label == savePickupAddress ? "white" : "black",
+                            },
+                          ]}
+                        >
+                          {label}
+                        </Text>
                       </TouchableOpacity>
                     </LinearGradient>
                   ))}
@@ -94,27 +148,33 @@ export default function Courierpickupdetails() {
               <Text style={styles.pickup}>Delivery details</Text>
               <View style={styles.input}>
                 <TextInput
-                  style={{ fontSize: 16 }}
+                  style={styles.inputContainer}
                   placeholder="Full Name"
-                  value={text}
-                  onChangeText={setText}
+                  value={DeliveryName}
+                  onChangeText={(text) => {
+                    setDeliveryName(text);
+                  }}
                 />
               </View>
               <View style={styles.input}>
                 <TextInput
-                  style={{ fontSize: 16 }}
+                  style={styles.inputContainer}
                   placeholder="Enter Delivery Address"
-                  value={text}
-                  onChangeText={setText}
+                  value={DeliveryAddress}
+                  onChangeText={(text) => {
+                    setDeliveryAddress(text);
+                  }}
                 />
                 <FontAwesome6 name="location-dot" size={25} color="#7C48D6" />
               </View>
               <View style={styles.input}>
                 <TextInput
-                  style={{ fontSize: 16 }}
+                  style={styles.inputContainer}
                   placeholder="Mobile Number"
-                  value={text}
-                  onChangeText={setText}
+                  value={DeliveryMobileNumber}
+                  onChangeText={(text) => {
+                    setDeliveryMobileNumber(text);
+                  }}
                 />
                 <AntDesign name="contacts" size={25} color="#7C48D6" />
               </View>
@@ -124,16 +184,32 @@ export default function Courierpickupdetails() {
                   {["Home", "Office", "Others"].map((label, index) => (
                     <TouchableOpacity
                       key={index}
-                      onPress={() => navigation.navigate("")}
+                      onPress={() => setsaveDeliveryAddress(label)}
                     >
                       <LinearGradient
-                        colors={["#6246D2", "#CE4FE3"]}
+                        colors={
+                          label == saveDeliveryAddress
+                            ? ["#6246D2", "#CE4FE3"]
+                            : ["#FFFFFF", "#FFFFFF"]
+                        }
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         style={styles.gradientBorder}
                       >
                         <View style={styles.buttonContainer}>
-                          <Text style={styles.buttonText}>{label}</Text>
+                          <Text
+                            style={[
+                              styles.buttonText,
+                              {
+                                color:
+                                  label == saveDeliveryAddress
+                                    ? "white"
+                                    : "black",
+                              },
+                            ]}
+                          >
+                            {label}
+                          </Text>
                         </View>
                       </LinearGradient>
                     </TouchableOpacity>
@@ -142,7 +218,14 @@ export default function Courierpickupdetails() {
               </View>
             </View>
           </View>
-          <Scheduleorder />
+          <Scheduleorder
+            Date_={Date_root}
+            setDate={setDate_root}
+            Noon={Noon_root}
+            setNoon={setNoon_root}
+            Timeslot_Value={Timeslot_Value_root}
+            setTimeslot_Value={setTimeslot_Value_root}
+          />
           <View style={{ padding: 20, backgroundColor: "white" }}>
             <Text style={styles.ship}>Shipment type</Text>
             <View style={styles.shipmenttype}>
@@ -359,11 +442,26 @@ export default function Courierpickupdetails() {
           </View>
         </View>
       </ScrollView>
+      <SalesCard
+        salesdata={{
+          Country_to: "UK",
+          Service: "Express",
+          daysToDelivery: "3 - 4 Days",
+          weight: "3",
+          price: "₹5299",
+        }}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    fontSize: 16,
+    marginLeft: 20,
+    width: "85%",
+    height: "100%",
+  },
   saveaddressas: {
     fontSize: 16,
     color: "#60606C",
@@ -382,7 +480,6 @@ const styles = StyleSheet.create({
     padding: 1, // Thin gradient border effect
   },
   buttonContainer: {
-    backgroundColor: "white",
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -397,15 +494,16 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    padding: 10,
+    width: "100%",
+    height: 60,
     borderColor: "#F6F3FC",
     fontSize: 16,
+    alignItems: "center",
     color: "#A1A0A5",
     justifyContent: "space-between",
     flexDirection: "row",
     fontWeight: "400",
+    paddingRight: 20,
   },
   click: {
     fontSize: 18,
