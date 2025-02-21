@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   },
   containertwo: {
     backgroundColor: "white",
-    marginTop:-14,
+    marginTop:-13,
   },
   containerthree: {
     marginTop: 10,
