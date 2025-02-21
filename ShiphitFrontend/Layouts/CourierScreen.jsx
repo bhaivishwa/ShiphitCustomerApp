@@ -167,7 +167,7 @@ const CourierScreen = () => {
                         </View>
                         {/* Country Name & Currency */}
                         <View>
-                          <Text style={{ fontSize: 16, color: "#000000" }}>
+                          <Text style={{ fontSize: 16, color: "#000000"}}>
                             {item.currency}
                           </Text>
                         </View>
