@@ -16,7 +16,6 @@ import dataset from "../utilities/restrictedItems";
 import Header from "./Header";
 
 export default function Restricteditems() {
-  const [phone, setPhone] = useState("");
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>

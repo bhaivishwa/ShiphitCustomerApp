@@ -18,6 +18,7 @@ import Entercomplete from "./Entercomplete";
 import Notification from "./Notification";
 import Trackingpage from "./Trackingpage";
 import SuccessScreen from "./Layouts/SuccessScreen";
+import Courierpickupdetails from "./Courierpickupdetails";
 
 const Stack = createStackNavigator();
 
@@ -52,7 +53,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={isLoggedIn ? "Courier" : "Login"}
+        initialRouteName={isLoggedIn ? "Courierpickupdetails" : "Login"}
         screenOptions={{ headerShown: false }}
       >
         {isLoggedIn ? (
@@ -72,6 +73,10 @@ const AppNavigator = () => {
             <Stack.Screen name="Entercomplete" component={Entercomplete} />
             <Stack.Screen name="Notification" component={Notification} />
             <Stack.Screen name="Trackingpage" component={Trackingpage} />
+            <Stack.Screen
+              name="Courierpickupdetails"
+              component={Courierpickupdetails}
+            />
           </>
         ) : (
           <>
