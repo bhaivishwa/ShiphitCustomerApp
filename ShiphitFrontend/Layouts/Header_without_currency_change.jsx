@@ -8,34 +8,7 @@ import { FlatList } from "react-native-gesture-handler";
 
 const Header = () => {
   const navigation = useNavigation(); // Access navigation object
-  const [modalVisible, setModalVisible] = useState(false);
-  const dataset = [
-    {
-      image: require(`../assets/flagsFinal/france.png`),
-      name: "france",
-      currency: "INR ₹",
-    },
-    {
-      image: require(`../assets/flagsFinal/usa.png`),
-      name: "USA",
-      currency: "USD $",
-    },
-    {
-      image: require(`../assets/flagsFinal/uk.png`),
-      name: "UK",
-      currency: "GBP £",
-    },
-    {
-      image: require(`../assets/flagsFinal/singapore.png`),
-      name: "Singapore",
-      currency: "SGD S$",
-    },
-    {
-      image: require(`../assets/flagsFinal/canada.png`),
-      name: "Canada",
-      currency: "CAD C$",
-    },
-  ];
+ 
   return (
     <View
       style={[
@@ -72,7 +45,7 @@ const Header = () => {
           >
             <AntDesign name="arrowleft" size={24} color="white" />
           </TouchableOpacity>
-          <Text style={tw`text-white text-lg pl-4`}>Courier</Text>
+          <Text style={tw`text-white text-lg pl-4`}>Tracking</Text>
         </View>
         <View
           style={{
