@@ -25,7 +25,7 @@ export default function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Trackingpage";
+          initialRouteName="Trackingpage"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen
