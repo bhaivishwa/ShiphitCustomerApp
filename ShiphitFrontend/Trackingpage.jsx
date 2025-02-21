@@ -12,6 +12,8 @@ import {
   pickerSelectStyles,
   selectedValue,
   ScrollView,
+  toggleContent,
+  isVisible,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,7 +27,10 @@ import { style } from "twrnc";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import dataset from "./utilities/Trackingpage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-export default function () {
+
+export default function Trackingpage() {
+  const [isContentVisible, setIsContentVisible] = useState(false);
+
   const [
     phone,
     setPhone,
@@ -38,16 +43,24 @@ export default function () {
   ] = useState("");
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, padding: 15, backgroundColor: "#FBF5FF" }}>
-      <ScrollView style={{ backgroundColor: "white" }}>
-        <View style={styles.fullcontent}>
-          <View style={styles.Courierpage}>
-            <View style={styles.Courier}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF", padding: 15 }}>
+      <ScrollView>
+        <View style={{ padding: 0 }}>
+          <View
+            style={{
+              backgroundColor: "white",
+              padding: 20,
+              paddingVertical: 30,
+              marginBottom: 10,
+            }}
+          >
+            <View style={{ paddingBottom: 15 }}>
               <View style={styles.contents}>
                 <View style={styles.btn4}>
                   <TouchableOpacity
                     style={styles.button3}
-                    onPress={() => navigation.navigate("")} >
+                    onPress={() => navigation.navigate("")}
+                  >
                     <Text style={styles.buttonText2}>
                       {" "}
                       Courier
@@ -70,61 +83,219 @@ export default function () {
           </View>
 
           <View style={styles.containertwo}>
-            <View style={styles.pricecontent}>
-              <Text style={styles.number}>
-                <Text style={styles.numberpad}>AWB NO</Text>: 12345678065
-              </Text>
-              <View style={styles.price}>
-                <MaterialIcons
-                  name="currency-rupee"
-                  size={18}
-                  color="#05040B"
-                />
-                <Text style={styles.pricenumber}>191</Text>
-              </View>
-            </View>
-            <View style={styles.weightcontain}>
-              <Text style={styles.weight}>
-                Weight <Text style={styles.kiloweight}>12Kg |</Text> December
-                11, 5.48 pm
-              </Text>
-            </View>
-            <View style={styles.van}>
-              <FontAwesome6 name="van-shuttle" size={24} color="#6246D2" />
-              <Text style={styles.days}>Economy (4 - 6 days)</Text>
-              <View></View>
-            </View>
-            <View style={styles.orderplaced}>
-              {dataset.map((d) => (
-                <View style={styles.map}>
-                  <View>
-                    <Text style={styles.category}>{d.title}</Text>
+            <View style={styles.orderandplaced}>
+              <View style={styles.orderplaced}>
+                {dataset.map((d) => (
+                  <View style={styles.map}>
+                    <View>
+                      <Text style={styles.category}>{d.title}</Text>
+                    </View>
+                    {d.subtitles.map((d) => (
+                      <>
+                        <Text style={styles.text1}>{d}</Text>
+                      </>
+                    ))}
                   </View>
-                  {d.subtitles.map((d) => (
-                    <>
-                      <Text style={styles.text1}>{d}</Text>
-                    </>
-                  ))}
-                </View>
-              ))}
-            </View>
-            <View style={styles.shippedto}>
-              <Text style={styles.shipped}>Shipped To</Text>
-              <Text style={styles.address}>
-                2nd floor, Mohan business park, Don bosco school,
-                Saravanampatti, Thudiyalur.
-              </Text>
+                ))}
+              </View>
+              <View style={styles.shippedto}>
+                <Text style={styles.shipped}>Shipped To</Text>
+                <Text style={styles.address}>
+                  2nd floor, Mohan business park, Don bosco school,
+                  Saravanampatti, Thudiyalur.
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.Repeatorder}
+                onPress={() => navigation.navigate("")}
+              >
+                <Text style={styles.Repeatbtn}>Repeat Order</Text>
+              </TouchableOpacity>
             </View>
           </View>
+        </View>
+
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => setIsContentVisible(!isContentVisible)}
+          >
+            <View style={styles.containerthree}>
+              <View style={styles.pricecontent}>
+                <Text style={styles.number}>
+                  <Text style={styles.numberpad}>
+                    Haldiram's Mithas Sweet Ladoo
+                  </Text>
+                </Text>
+                <View style={styles.price}>
+                  <MaterialIcons
+                    name="currency-rupee"
+                    size={18}
+                    color="#05040B"
+                  />
+                  <Text style={styles.pricenumber}>191</Text>
+                </View>
+              </View>
+              <View style={styles.weightcontain}>
+                <Text style={styles.weight}>
+                  <Text style={styles.kiloweight}></Text> December 11, 5.48 pm
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row", gap: 10 }}>
+                  <View
+                    style={{
+                      backgroundColor: "#00B60C",
+                      borderRadius: 999,
+                      padding: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 20,
+                      height: 20,
+                      marginTop: 25,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="check-bold"
+                      size={12}
+                      color="white"
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      color: "#00B60C",
+                      fontSize: 16,
+                      fontWeight: 600,
+                      marginTop: 25,
+                    }}
+                  >
+                    Delivered
+                  </Text>
+                </View>
+
+                <TouchableOpacity
+                  style={styles.Repeatorder}
+                  onPress={() => navigation.navigate("")}
+                >
+                  <Text style={styles.Repeatbtn}>Repeat Order</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.orderandplaced}>
+                <View style={styles.orderplaced}>
+                  {dataset.map((d) => (
+                    <View style={styles.map}>
+                      <View>
+                        <Text style={styles.category}>{d.title}</Text>
+                      </View>
+                      {d.subtitles.map((d) => (
+                        <>
+                          <Text style={styles.text1}>{d}</Text>
+                        </>
+                      ))}
+                    </View>
+                  ))}
+                </View>
+                <View style={styles.shippedto}>
+                  <Text style={styles.shipped}>Shipped To</Text>
+                  <Text style={styles.address}>
+                    2nd floor, Mohan business park, Don bosco school,
+                    Saravanampatti, Thudiyalur.
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.Repeatorder}
+                  onPress={() => navigation.navigate("")}
+                >
+                  <Text style={styles.Repeatbtn}>Repeat Order</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {isContentVisible && (
+              <Text style={styles.cardContent}>
+                <View style={styles.orderplaced}>
+                  {dataset.map((d) => (
+                    <View style={styles.map}>
+                      <View>
+                        <Text style={styles.category}>{d.title}</Text>
+                      </View>
+                      {d.subtitles.map((d) => (
+                        <>
+                          <Text style={styles.text1}>{d}</Text>
+                        </>
+                      ))}
+                    </View>
+                  ))}
+                </View>
+                <View style={styles.shippedto}>
+                  <Text style={styles.shipped}>Shipped To</Text>
+                  <Text style={styles.address}>
+                    2nd floor, Mohan business park, Don bosco school,
+                    Saravanampatti, Thudiyalur.
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.Repeatorder}
+                  onPress={() => navigation.navigate("")}
+                >
+                  <Text style={styles.Repeatbtn}>Repeat Order</Text>
+                </TouchableOpacity>
+              </Text>
+            )}
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  containertwo:{
-    paddingHorizontal:10,
-    marginTop:15,
+  orderandplaced: {
+    display: "none",
+  },
+  tick: {
+    fontWeight: "500",
+    fontSize: 20,
+    paddingVertical: 20,
+    marginLeft: 20,
+    marginTop: 10,
+    color: "#00B60C",
+  },
+  delivery: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    paddingVertical: 20,
+  },
+  Repeatorder: {
+    backgroundColor: "#FFFFFF",
+    paddingVertical: 18,
+    width: "45%",
+    borderRadius: 50,
+    alignItems: "center",
+    borderColor: "#6246D2",
+    borderWidth: 1,
+    marginTop: 25,
+  },
+  Repeatbtn: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#6246D2",
+  },
+  containertwo: {
+    backgroundColor: "white",
+    marginTop:-14,
+  },
+  containerthree: {
+    marginTop: 10,
+    padding: 30,
+    backgroundColor: "white",
   },
   price: {
     display: "flex",
@@ -140,8 +311,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   pricenumber: {
-    fontSize: 18,
-    fontWeight: "400",
+    fontSize: 19,
+    fontWeight: "500",
     color: "#05040B",
     marginTop: -4,
   },
@@ -172,7 +343,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    paddingVertical: 10,
+    paddingVertical: 12,
+    marginTop: 5,
     paddingHorizontal: 30,
     gap: 5,
   },
@@ -182,9 +354,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#05040B",
     marginTop: 15,
+    paddingHorizontal: 15,
   },
   address: {
     paddingVertical: 3,
+    paddingHorizontal: 15,
     fontWeight: "400",
     fontSize: 17,
     color: "#60606C",
@@ -200,35 +374,29 @@ const styles = StyleSheet.create({
   },
   kiloweight: {
     fontWeight: "400",
-    color: "#05040B",
+    color: "#A1A0A5",
     fontSize: "15",
   },
   numberpad: {
-    color: "#A1A0A5",
-    fontWeight: "400",
+    color: "#05040B",
+    fontWeight: "500",
+    fontSize: "17",
   },
-  input:{
-    borderWidth:1,
-    paddingVertical:20,
-    backgroundColor:"#FFFFFF",
-    fontSize:18,
-    padding:15,
-    borderColor:"#F6F3FC",
-    borderRadius:8,
-    fontWeight:"500",
+  input: {
+    borderWidth: 1,
+    paddingVertical: 20,
+    backgroundColor: "#FFFFFF",
+    fontSize: 18,
+    padding: 15,
+    borderColor: "#F6F3FC",
+    borderRadius: 8,
+    fontWeight: "500",
   },
-  contents: {
-    paddingVertical:10,
+  contents: {},
+  buttonText2: {
+    borderColor: "#F6F3FC",
+    color: "#9C4BDB",
+    fontSize: 18,
   },
-  buttonText2:{
-    borderColor:"#F6F3FC",
-    color:"#9C4BDB",
-    fontSize:18,
-    paddingTop:15,
-    paddingHorizontal:8,
-    marginBottom:5,
-  },
-  btn1: {
-    paddingVertical:10,
-  },
+  btn1: {},
 });
