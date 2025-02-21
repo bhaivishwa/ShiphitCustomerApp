@@ -43,7 +43,7 @@ export default function Trackingpage() {
   ] = useState("");
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF", }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF" }}>
       <ScrollView>
         <View style={{ padding: 0 }}>
           <View
@@ -149,7 +149,14 @@ export default function Trackingpage() {
                   alignItems: "center",
                 }}
               >
-                <View style={{ flexDirection: "row", gap: 10, alignItems:"center",marginTop:5,}}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    gap: 10,
+                    alignItems: "center",
+                    marginTop: 5,
+                  }}
+                >
                   <View
                     style={{
                       backgroundColor: "#00B60C",
@@ -189,7 +196,6 @@ export default function Trackingpage() {
               </View>
 
               <View style={styles.orderandplaced}>
-                
                 <View style={styles.orderplaced}>
                   {dataset.map((d) => (
                     <View style={styles.map}>
@@ -242,13 +248,12 @@ export default function Trackingpage() {
                     Saravanampatti, Thudiyalur.
                   </Text>
                   <TouchableOpacity
-                  style={styles.Repeatorderone}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.Repeatbtnone}>Repeat Order</Text>
-                </TouchableOpacity>
+                    style={styles.Repeatorderone}
+                    onPress={() => navigation.navigate("")}
+                  >
+                    <Text style={styles.Repeatbtnone}>Repeat Order</Text>
+                  </TouchableOpacity>
                 </View>
-              
               </Text>
             )}
           </TouchableOpacity>
@@ -258,9 +263,9 @@ export default function Trackingpage() {
   );
 }
 const styles = StyleSheet.create({
-  cardContent:{
-   padding:10,
-   marginBottom:16,
+  cardContent: {
+    padding: 10,
+    marginBottom: 16,
   },
   orderandplaced: {
     display: "none",
@@ -299,7 +304,7 @@ const styles = StyleSheet.create({
     borderColor: "#6246D2",
     borderWidth: 1,
     marginTop: 25,
-    marginLeft:20,
+    marginLeft: 20,
   },
   Repeatbtn: {
     fontSize: 16,
@@ -313,7 +318,7 @@ const styles = StyleSheet.create({
   },
   containertwo: {
     backgroundColor: "white",
-    marginTop:-13,
+    marginTop: -13,
   },
   containerthree: {
     marginTop: 10,
@@ -348,8 +353,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "400",
     color: "#A1A0A5",
-    marginTop:-10,
-    marginLeft:-3,
+    marginTop: -10,
+    marginLeft: -3,
   },
   days: {
     fontSize: 18,
@@ -401,7 +406,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#A1A0A5",
     fontSize: "15",
-    marginTop:55,
+    marginTop: 55,
   },
   numberpad: {
     color: "#05040B",
@@ -422,8 +427,8 @@ const styles = StyleSheet.create({
   buttonText2: {
     borderColor: "#F6F3FC",
     color: "#9C4BDB",
-    marginBottom:10,
-    paddingHorizontal:8,
+    marginBottom: 10,
+    paddingHorizontal: 8,
     fontSize: 18,
   },
   btn1: {},
