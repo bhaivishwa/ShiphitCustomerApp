@@ -19,6 +19,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SuccessScreen from "./Layouts/SuccessScreen";
 import Scheduleorder from "./Scheduleorder";
+import Pickupmap from "./Pickupmap";
 // import Scheduleorder from "./Scheduleorder";
 export default function App() {
   const Stack = createStackNavigator();
@@ -26,7 +27,7 @@ export default function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Trackingpage"
+          initialRouteName="Pickupmap"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen
@@ -49,6 +50,7 @@ export default function App() {
           <Stack.Screen name="Notification" component={Notification} />
           <Stack.Screen name="Trackingpage" component={Trackingpage} />
           <Stack.Screen name="Scheduleorder" component={Scheduleorder} />
+          <Stack.Screen name="Pickupmap" component={Pickupmap}/>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
