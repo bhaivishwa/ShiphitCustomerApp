@@ -20,15 +20,18 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.vishwaa.ShiphitCustomerApp"
+      "package": "com.nithishshiphit_25.ShiphitCustomerApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "5973a4d9-c395-49f3-a903-89cdae82688d"
+        "projectId": "33c71e1f-0a40-48e6-b329-2d1335a9398c"
       }
-    }
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }

@@ -4,280 +4,352 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  handleOtpSubmit,
-  pickerSelectStyles,
-  selectedValue,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import RNPickerSelect from "react-native-picker-select";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import Entypo from "@expo/vector-icons/Entypo";
 import Scheduleorder from "./Scheduleorder";
+import { LinearGradient } from "expo-linear-gradient";
+import Header_without_currency_change from "./Layouts/Header_without_currency_change";
 
 export default function Courierpickupdetails() {
-  const [
-    phone,
-    setPhone,
-    selectedvalue,
-    setSelectedvalue,
-    text,
-    setText,
-    isOn,
-    setIsOn,
-  ] = useState("");
-
+  const [text, setText] = useState("");
+  const [shipmentDetails, setshipmentDetails] = useState({});
+  const [shipmentType, setshipmentType] = useState("");
+  const [whatitems, setwhatitems] = useState([]);
   const navigation = useNavigation();
+  const [suggestions, setsuggestions] = useState([
+    "Dress",
+    "Snacks",
+    "Photos",
+    "Medicines",
+    "Sweets",
+  ]);
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 8,}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF" }}>
       <ScrollView>
-        <View style={styles.fullcontent}>
+        <View>
+          <Header_without_currency_change />
           <View style={styles.Courierpage}>
-            <View style={styles.Courier}>
+            <View style={{ gap: 10 }}>
               <Text style={styles.pickup}> Pickup details</Text>
-
-              <View style={styles.btn1}>
-                <View style={styles.container}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Full name"
-                    value={text}
-                    onChangeText={setText}
-                  />
-                </View>
-              </View>
-              <View style={styles.btn2}>
+              <View style={styles.input}>
                 <TextInput
-                  style={styles.inputone}
-                  placeholder="Enter Pickup address"
+                  style={{ fontSize: 16 }}
+                  placeholder="Full Name"
                   value={text}
                   onChangeText={setText}
                 />
-                <View style={styles.location}>
-                  <FontAwesome6 name="location-dot" size={25} color="blue" />
-                </View>
               </View>
-
-              <View style={styles.btn3}>
+              <View style={styles.input}>
                 <TextInput
-                  style={styles.inputone}
-                  placeholder="Mobile number"
+                  style={{ fontSize: 16 }}
+                  placeholder="Enter Pickup Address"
                   value={text}
                   onChangeText={setText}
                 />
-                <View style={styles.contacts}>
-                  <AntDesign name="contacts" size={25} color="blue" />
-                </View>
+                <FontAwesome6 name="location-dot" size={25} color="#7C48D6" />
               </View>
-
-              <Text style={styles.saveaddressas}> Save address as</Text>
-              <View style={styles.contents}>
-                <View style={styles.btn4}>
-                  <TouchableOpacity
-                    style={styles.button3}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText1}>
-                      {" "}
-                      Home
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.btn11}>
-                  <TouchableOpacity
-                    style={styles.button4}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText2}>
-                      {" "}
-                      Office
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.btn12}>
-                  <TouchableOpacity
-                    style={styles.button5}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText3}>
-                      {" "}
-                      Others
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
+              <View style={styles.input}>
+                <TextInput
+                  style={{ fontSize: 16 }}
+                  placeholder="Mobile Number"
+                  value={text}
+                  onChangeText={setText}
+                />
+                <AntDesign name="contacts" size={25} color="#7C48D6" />
+              </View>
+              <View>
+                <Text style={styles.saveaddressas}>Save address as</Text>
+                <View style={styles.contents}>
+                  {["Home", "Office", "Others"].map((label, index) => (
+                    <LinearGradient
+                      key={index}
+                      colors={["#6246D2", "#CE4FE3"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={styles.gradientBorder}
+                    >
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate("")}
+                        style={styles.buttonContainer}
+                      >
+                        <Text style={styles.buttonText}>{label}</Text>
+                      </TouchableOpacity>
+                    </LinearGradient>
+                  ))}
                 </View>
               </View>
             </View>
           </View>
-
           <View style={styles.Courierpage}>
-            <View style={styles.Courier}>
-              <Text style={styles.pickup}> Delivery details</Text>
-
-              <View style={styles.btn1}>
-                <View style={styles.container}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Full name"
-                    value={text}
-                    onChangeText={setText}
-                  />
-                </View>
-              </View>
-              <View style={styles.btn2}>
+            <View style={{ gap: 10 }}>
+              <Text style={styles.pickup}>Delivery details</Text>
+              <View style={styles.input}>
                 <TextInput
-                  style={styles.inputone}
-                  placeholder="Enter Pickup address"
+                  style={{ fontSize: 16 }}
+                  placeholder="Full Name"
                   value={text}
                   onChangeText={setText}
                 />
-                <View style={styles.location}>
-                  <FontAwesome6 name="location-dot" size={25} color="blue" />
-                </View>
               </View>
-
-              <View style={styles.btn3}>
+              <View style={styles.input}>
                 <TextInput
-                  style={styles.inputone}
-                  placeholder="Mobile number"
+                  style={{ fontSize: 16 }}
+                  placeholder="Enter Delivery Address"
                   value={text}
                   onChangeText={setText}
                 />
-                <View style={styles.contacts}>
-                  <AntDesign name="contacts" size={25} color="blue" />
-                </View>
+                <FontAwesome6 name="location-dot" size={25} color="#7C48D6" />
               </View>
-
-              <Text style={styles.saveaddressas}> Save address as</Text>
-              <View style={styles.contents}>
-                <View style={styles.btn4}>
-                  <TouchableOpacity
-                    style={styles.button3}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText1}>
-                      {" "}
-                      Home
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.btn11}>
-                  <TouchableOpacity
-                    style={styles.button4}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText2}>
-                      {" "}
-                      Office
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.btn12}>
-                  <TouchableOpacity
-                    style={styles.button5}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText3}>
-                      {" "}
-                      Others
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
+              <View style={styles.input}>
+                <TextInput
+                  style={{ fontSize: 16 }}
+                  placeholder="Mobile Number"
+                  value={text}
+                  onChangeText={setText}
+                />
+                <AntDesign name="contacts" size={25} color="#7C48D6" />
+              </View>
+              <View>
+                <Text style={styles.saveaddressas}>Save address as</Text>
+                <View style={styles.contents}>
+                  {["Home", "Office", "Others"].map((label, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => navigation.navigate("")}
+                    >
+                      <LinearGradient
+                        colors={["#6246D2", "#CE4FE3"]}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.gradientBorder}
+                      >
+                        <View style={styles.buttonContainer}>
+                          <Text style={styles.buttonText}>{label}</Text>
+                        </View>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  ))}
                 </View>
               </View>
             </View>
           </View>
-          <Scheduleorder/>
-          <View style={styles.shipment}>
+          <Scheduleorder />
+          <View style={{ padding: 20, backgroundColor: "white" }}>
             <Text style={styles.ship}>Shipment type</Text>
             <View style={styles.shipmenttype}>
               <TouchableOpacity
-                style={styles.button6}
-                onPress={() => navigation.navigate("")}
+                style={{ width: "45%" }}
+                onPress={() => setshipmentType({ shipmentType: "Personal" })}
               >
-                <Text style={styles.buttonText7}> Commercial</Text>
+                <LinearGradient
+                  colors={
+                    shipmentType.shipmentType == "Personal"
+                      ? ["#6246D2", "#CE4FE3"]
+                      : ["#FFFFFF", "#FFFFFF"]
+                  }
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{
+                    borderRadius: 4,
+                    paddingHorizontal: 7,
+                    paddingVertical: 12,
+                    borderColor: "#F6F3FC",
+                    paddingVertical: 15,
+                    width: "100%",
+                    alignItems: "center",
+                    borderWidth: 1,
+                  }}
+                >
+                  <View
+                    style={{
+                      display:
+                        shipmentType?.shipmentType == "Personal"
+                          ? "flex"
+                          : "none",
+                      backgroundColor: "white",
+                      borderRadius: 999,
+                      padding: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 20,
+                      height: 20,
+                      position: "absolute",
+                      top: "73%",
+                      left: 10,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="check-bold"
+                      size={14}
+                      color="#7C49D6"
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color:
+                        shipmentType?.shipmentType == "Personal"
+                          ? "white"
+                          : "black",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Personal
+                  </Text>
+                </LinearGradient>
               </TouchableOpacity>
-
               <TouchableOpacity
-                style={styles.button7}
-                onPress={() => navigation.navigate("")}
+                style={{ width: "45%" }}
+                onPress={() => setshipmentType({ shipmentType: "Commercial" })}
               >
-                <Text style={styles.buttonText8}> Non-Commercial</Text>
+                <LinearGradient
+                  colors={
+                    shipmentType.shipmentType == "Commercial"
+                      ? ["#6246D2", "#CE4FE3"]
+                      : ["#FFFFFF", "#FFFFFF"]
+                  }
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{
+                    borderRadius: 4,
+                    paddingHorizontal: 7,
+                    paddingVertical: 12,
+                    borderColor: "#F6F3FC",
+                    paddingVertical: 15,
+                    width: "100%",
+                    alignItems: "center",
+                    borderWidth: 1,
+                  }}
+                >
+                  <View
+                    style={{
+                      display:
+                        shipmentType.shipmentType == "Commercial"
+                          ? "flex"
+                          : "none",
+                      backgroundColor: "white",
+                      borderRadius: 999,
+                      padding: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 20,
+                      height: 20,
+                      position: "absolute",
+                      top: "73%",
+                      left: 10,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="check-bold"
+                      size={14}
+                      color="#7C49D6"
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color:
+                        shipmentType?.shipmentType == "Commercial"
+                          ? "white"
+                          : "black",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Commercial
+                  </Text>
+                </LinearGradient>
               </TouchableOpacity>
             </View>
-
             <View style={styles.itemlist}>
-              <Text style={styles.whatitems}>What Items</Text>
+              <Text style={styles.ship}>What Items</Text>
               <View style={styles.btn13}>
-                <TouchableOpacity
-                  style={styles.button8}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.buttonText6}>
-                    Food{" "}
-                    <MaterialCommunityIcons
-                      name="window-close"
-                      size={18}
-                      color="#A1A0A5"
-                    />
-                  </Text>
-                </TouchableOpacity>
+                <FlatList
+                  data={whatitems}
+                  horizontal
+                  keyExtractor={(item) => item.id}
+                  showsHorizontalScrollIndicator={false} // ✅ Hides scrollbar
+                  contentContainerStyle={{
+                    paddingVertical: 6,
+                    height: 60,
+                    paddingHorizontal: 6,
+                  }}
+                  renderItem={({ item, index }) => (
+                    <TouchableOpacity
+                      style={[
+                        styles.button8,
+                        {
+                          marginRight:
+                            index !== suggestions.length - 1 ? 10 : 0,
+                        },
+                      ]}
+                    >
+                      <Text style={styles.buttonText6}>{item}</Text>
+                      <MaterialCommunityIcons
+                        onPress={() =>
+                          setwhatitems(
+                            whatitems.filter((value) => value !== item)
+                          )
+                        }
+                        name="window-close"
+                        size={20}
+                        color="#A1A0A5"
+                      />
+                    </TouchableOpacity>
+                  )}
+                />
               </View>
             </View>
             <View style={styles.contentthree}>
-              <Text style={styles.suggestion}> Suggestions</Text>
-              <View style={styles.btn15}>
-                <TouchableOpacity
-                  style={styles.button12}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.buttonText12}>Dress</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button12}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.buttonText12}>Snacks</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button12}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.buttonText12}>Photos</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button12}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.buttonText12}>Medicines</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button12}
-                  onPress={() => navigation.navigate("")}
-                >
-                  <Text style={styles.buttonText12}>Sweets</Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.suggestion}>Suggestions</Text>
+              <FlatList
+                data={suggestions}
+                horizontal
+                keyExtractor={(item) => item.id}
+                showsHorizontalScrollIndicator={false} // ✅ Hides scrollbar
+                contentContainerStyle={{
+                  paddingVertical: 10,
+                }}
+                renderItem={({ item, index }) => (
+                  <TouchableOpacity
+                    style={{
+                      borderWidth: 1,
+                      borderColor: "#60606C",
+                      alignSelf: "flex-start",
+                      paddingHorizontal: 15,
+                      paddingVertical: 10,
+                      borderRadius: 4,
+                      marginRight: index !== suggestions.length - 1 ? 15 : 0,
+                    }}
+                    onPress={() =>
+                      setwhatitems((prev) =>
+                        prev.includes(item) ? prev : [...prev, item]
+                      )
+                    }
+                  >
+                    <Text
+                      style={{
+                        color: "#60606C",
+                        fontSize: 15,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              />
             </View>
-
             <View style={styles.click}>
-              <Text style={styles.clickhere}>
-                {"     "}
-                Click here to View list of{" "}
-              </Text>
+              <Text style={styles.clickhere}>Click here to View list of</Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Restricteditems")}
               >
@@ -292,23 +364,54 @@ export default function Courierpickupdetails() {
 }
 
 const styles = StyleSheet.create({
-
+  saveaddressas: {
+    fontSize: 16,
+    color: "#60606C",
+    fontWeight: "500",
+  },
+  contents: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+    borderRadius: 3,
+    marginTop: 15,
+    padding: 5,
+  },
+  gradientBorder: {
+    borderRadius: 5,
+    padding: 1, // Thin gradient border effect
+  },
+  buttonContainer: {
+    backgroundColor: "white",
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "black",
+    fontWeight: "500",
+    fontSize: 18,
+  },
   input: {
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingVertical: 20,
     padding: 10,
     borderColor: "#F6F3FC",
     fontSize: 16,
-    color:"#A1A0A5",
-    fontWeight:"500",
+    color: "#A1A0A5",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    fontWeight: "400",
   },
   click: {
     fontSize: 18,
     display: "flex",
     flexDirection: "row",
-    marginTop:8,
+    marginTop: 8,
   },
   whatitems: {
     fontSize: 17,
@@ -323,22 +426,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#F6F3FC",
     fontSize: 16,
-    fontWeight:"500",
-    color:"#A1A0A5"
+    fontWeight: "500",
+    color: "#A1A0A5",
   },
 
-  saveaddressas: {
-    fontSize: 16,
-    color: "#CCCCCC",
-    fontWeight: "500",
-    paddingHorizontal:5,
-  },
   pickup: {
     fontWeight: "700",
     fontSize: 18,
-    paddingVertical: 15,
     color: "#05040B",
-    paddingHorizontal:7,
   },
   delivery: {
     fontWeight: "700",
@@ -347,16 +442,13 @@ const styles = StyleSheet.create({
   ship: {
     fontWeight: "400",
     fontSize: 18,
-    color:"#676D76",
-    paddingHorizontal:10,
+    color: "#686F76",
+    // paddingHorizontal: 10,
   },
   suggestion: {
     fontWeight: "500",
     fontSize: 18,
-    paddingBottom: 5,
     color: "#29282C",
-    paddingVertical: 15,
-    paddingHorizontal:-3,
   },
   button: {
     backgroundColor: "white",
@@ -381,24 +473,6 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 5,
   },
-  contents: {
-    display: "flex",
-    flexDirection: "row",
-    padding:5,
-    paddingVertical: 10,
-    backgroundColor: "white",
-    justifyContent:"space-evenly",  
-    borderRadius:3,  
-  },
-  buttonText1: {
-    padding:10,
-    borderWidth: 1,
-    borderColor: "#F6F3FC",
-    color: "#60606C",
-    fontWeight: "500",
-    fontSize: 18,
-    borderRadius:5,
-  },
   buttonText12: {
     borderWidth: 1,
     borderColor: "#60606c",
@@ -414,19 +488,19 @@ const styles = StyleSheet.create({
     borderColor: "#F6F3FC",
     color: "#60606C",
     fontWeight: "500",
-    padding:10,
+    padding: 10,
     borderWidth: 1,
     fontSize: 18,
-    borderRadius:5,
+    borderRadius: 5,
   },
   buttonText3: {
     borderColor: "#F6F3FC",
     color: "#60606C",
     fontWeight: "500",
-    padding:10,
+    padding: 10,
     borderWidth: 1,
     fontSize: 18,
-    borderRadius:5,
+    borderRadius: 5,
   },
 
   btn1: {
@@ -451,18 +525,19 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   btn13: {
-    paddingLeft: 5,
     borderWidth: 1,
     marginTop: 10,
-    borderColor: "#CCC3D1",
-    borderRadius: 8,
-    color:"#F6F3FC",
+    paddingLeft: 4,
+    borderColor: "#CCC4D1",
+    borderRadius: 5,
+    flexDirection: "column",
+    color: "#F6F3FC",
+    flexDirection: "row",
   },
   btn14: {
     width: "100%",
     paddingHorizontal: 35,
     display: "flex",
-    flexDirection: "row",
     paddingLeft: 3,
     gap: 7,
   },
@@ -482,21 +557,16 @@ const styles = StyleSheet.create({
     position: "relative",
     bottom: 40,
   },
-  contacts: {
-    justifyContent: "center",
-    alignItems: "flex-end",
-    width: "90%",
-    position: "relative",
-    bottom: 40,
-  },
   Courierpage: {
     backgroundColor: "white",
+    padding: 20,
+    marginBottom: 5,
   },
   button6: {
-    borderColor: "#D7DBE0",
+    borderColor: "#F6F3FC",
     paddingVertical: 15,
     marginTop: 5,
-    width: "50%",
+    width: "45%",
     borderRadius: 5,
     alignItems: "center",
     borderWidth: 1,
@@ -505,7 +575,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingVertical: 15,
     marginTop: 5,
-    width: "50%",
+    width: "45%",
     borderRadius: 5,
     alignItems: "center",
     borderColor: "#F6F3FC",
@@ -513,17 +583,21 @@ const styles = StyleSheet.create({
   },
   button8: {
     backgroundColor: "#F6F3FC",
-    paddingVertical: 13,
-    width: "30%",
+    flexDirection: "row",
+    gap: 5,
     borderRadius: 5,
+    alignSelf: "flex-start",
     alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 15,
+    paddingHorizontal: 16,
   },
 
   shipmenttype: {
     display: "flex",
+    marginTop: 10,
     flexDirection: "row",
-    padding: 5,
-    gap: 8,
+    justifyContent: "space-between",
   },
 
   lasttext: {
@@ -535,13 +609,6 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
 
-  shipment: {
-    backgroundColor: "white",
-    paddingVertical: 10,
-  },
-  fullcontent: {
-    backgroundColor: "white",
-  },
   buttonText4: {
     fontSize: 17,
     fontWeight: "bold",
@@ -555,26 +622,25 @@ const styles = StyleSheet.create({
   buttonText6: {
     color: "#A54CDD",
     fontSize: 18,
-    height: 28,
   },
   itemlist: {
     width: "100%",
     borderRadius: "30",
-    paddingHorizontal:10,
+    marginTop: 15,
   },
   clickhere: {
-    fontSize: 16,
-    color:"#60606C",
-    fontWeight:"400",
+    fontSize: 17,
+    color: "#60606C",
+    fontWeight: "400",
   },
   restrictedtxt: {
     fontSize: 17,
     paddingHorizontal: 8,
     color: "#6246D2",
     position: "relative",
-    right: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: "#6246D2",
+    right: 2,
+    fontWeight: "500",
+    textDecorationLine: "underline",
   },
   choosedate: {
     color: "#2D5E63",
@@ -621,7 +687,7 @@ const styles = StyleSheet.create({
     color: "#333333",
     fontWeight: "600",
   },
-  buttonText8:{
+  buttonText8: {
     fontSize: 16,
     color: "#333333",
     fontWeight: "600",
@@ -646,7 +712,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 7,
     height: 60,
-    marginTop:10,
+    marginTop: 10,
   },
   contentsone: {
     display: "flex",
@@ -704,9 +770,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   contentthree: {
-    paddingHorizontal:12,
-    backgroundColor:"#F6F3FC",
-    marginTop:15,
-    
+    padding: 15,
+    gap: 10,
+    backgroundColor: "#F6F3FC",
+    marginTop: 10,
+    borderRadius: 5,
   },
 });

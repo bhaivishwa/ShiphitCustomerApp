@@ -5,6 +5,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import MaskedView from "@react-native-masked-view/masked-view";
 import tw from "tailwind-react-native-classnames";
+import WeightSelector from "./WeightSelector";
 
 const ServiceCard = ({ title, duration, activeTab, setactiveTab }) => (
   <TouchableOpacity onPress={() => setactiveTab(title)} style={{ flex: 1 }}>
@@ -154,10 +155,17 @@ const countries = [
   },
 ];
 
-const Service = () => {
-  const [activeTab, setactiveTab] = useState("Economy");
-  const [Weight_type, setWeight_type] = useState("Kg");
-  const [weight, setweight] = useState("0");
+const Service = ({
+  activeTab,
+  setactiveTab,
+  Weight_type,
+  setWeight_type,
+  weight,
+  setweight,
+}) => {
+  // const [activeTab, setactiveTab] = useState("Economy");
+  // const [Weight_type, setWeight_type] = useState("Kg");
+  // const [weight, setweight] = useState("");
 
   return (
     <View
@@ -209,43 +217,7 @@ const Service = () => {
             borderRadius: "50%",
           }}
         ></View>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "60%",
-            alignItems: "center",
-            padding: 10,
-            borderWidth: 1,
-            borderRadius: 4,
-            borderColor: "#F6F3FC",
-            justifyContent: "space-between",
-          }}
-        >
-          <TextInput
-            value={weight}
-            onChange={(e) => {
-              setweight(e.target.value);
-            }}
-            style={{
-              // Corrected property
-              color: "black",
-              fontWeight: "600",
-              fontSize: 20,
-              width: "82%",
-              borderRadius: 6, // Added for smooth edges
-            }}
-            keyboardType="numeric" // Ensures number input
-          />
-          <MaskedView maskElement={<Text style={styles.text}>Kg</Text>}>
-            <LinearGradient
-              colors={["#6246D2", "#CE4FE3"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }} // Left to right
-            >
-              <Text style={[styles.text, { opacity: 0 }]}>Kg</Text>
-            </LinearGradient>
-          </MaskedView>
-        </View>
+        <WeightSelector selectedWeight={weight} setSelectedWeight={setweight} />
         <View
           style={{
             flexDirection: "row",

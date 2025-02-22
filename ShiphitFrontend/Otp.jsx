@@ -16,20 +16,50 @@ import { useRoute } from "@react-navigation/native";
 import { OtpInput } from "react-native-otp-entry";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
-
 export default function Otp() {
   const navigation = useNavigation();
   const route = useRoute();
   const [otpValue, setotpValue] = useState("");
-  const { phone } = route.params || {}; // Get the phone number
+  const { name, countryCode, phonenumber, service } = route.params || {}; // Get the phone number
+
+  const verifyOTP = async (phonenumber, otp) => {
+    console.log(`+${countryCode}${phonenumber}`);
+    try {
+      const response = await axios.post(
+        "https://shipmentbackend-ad96a7a505ec.herokuapp.com/verifyOTP",
+        { phoneNumber: `+${countryCode}${phonenumber}`, otp: parseInt(otp) }
+      );
+      return response.data; // Expecting { success: true/false }
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "OTP verification failed"
+      );
+    }
+  };
+
+  async function addUserToDB(name, countryCode, phonenumber) {
+    try {
+      const response = await axios.post(
+        "https://shipmentbackend-ad96a7a505ec.herokuapp.com/addUser",
+        {
+          name: name,
+          countryCode: `+${countryCode}`,
+          phone: String(phonenumber),
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      // throw new Error(error.response?.data?.message || "Failed to add user");
+    }
+  }
 
   async function resend() {
     console.log("resend function trigred!");
-    console.log(phone);
     await axios
       .post("https://shipmentbackend-ad96a7a505ec.herokuapp.com/sendOTP", {
         name: "Nithish",
-        phoneNumber: phone,
+        phoneNumber: phonenumber,
       })
       .then((d) => {
         console.log(d.data);
@@ -40,19 +70,32 @@ export default function Otp() {
   }
 
   const handleSubmit = async () => {
-    const formatedVlaue = parseInt(otpValue);
-    console.log(formatedVlaue);
-    await axios
-      .post("https://shipmentbackend-ad96a7a505ec.herokuapp.com/verifyOTP", {
-        phoneNumber: phone,
-        otp: formatedVlaue,
-      })
-      .then((result) => {
-        console.log(result.data);
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
+    if (service == "signUpOtp") {
+      try {
+        const otpVerificationResult = await verifyOTP(phonenumber, otpValue);
+        if (!otpVerificationResult.success) {
+          console.error("OTP verification failed!");
+          return;
+        }
+        const userResponse = await addUserToDB(name, countryCode, phonenumber); // Replace "Nithish" with dynamic name
+        console.log("User successfully added:", userResponse);
+        navigation.navigate("Home");
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+      return;
+    }
+
+    if (service == "loginOtp") {
+      console.log("Login otp");
+      const otpVerificationResult = await verifyOTP(phonenumber, otpValue);
+      if (!otpVerificationResult.success) {
+        console.error("OTP verification failed!");
+        return;
+      }
+      navigation.navigate("Home");
+      return;
+    }
   };
 
   return (
@@ -71,7 +114,7 @@ export default function Otp() {
               <Text style={{ color: "#666666", fontSize: 17, marginBottom: 7 }}>
                 Enter the 4 digit code sent to your WhatsApp at
               </Text>
-              <Text style={styles.login_text1}>{phone}</Text>
+              <Text style={styles.login_text1}>{phonenumber}</Text>
             </View>
             <OtpInput
               numberOfDigits={4}

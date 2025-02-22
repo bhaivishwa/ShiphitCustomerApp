@@ -13,6 +13,8 @@ import {
   selectedValue,
   ScrollView,
   toggleContent,
+  width,
+  height,
   isVisible,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -27,7 +29,9 @@ import { style } from "twrnc";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import dataset from "./utilities/Trackingpage";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-
+import * as Progress from "react-native-progress";
+import Feather from "@expo/vector-icons/Feather";
+import Header_without_currency_change from "./Layouts/Header_without_currency_change";
 export default function Pickupmap() {
   const [isContentVisible, setIsContentVisible] = useState(false);
 
@@ -41,59 +45,131 @@ export default function Pickupmap() {
     isOn,
     setIsOn,
   ] = useState("");
+
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF",  }}>
-      <ScrollView style={{padding:20,}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF5FF" }}>
+      <Header_without_currency_change />
+      <View>
+        <TouchableOpacity>
+          <Text style={styles.buttonText2}>Pick up</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ flex: 1 }}>
+        <Image
+          source={require("./assets/Musicmap.png")}
+          style={styles.signupimage}
+        />
+      </View>
 
-
-        
-        <View style={{}}>
-          <View
+      <View style={styles.containertwo}>
+        <View style={{ backgroundColor: "White", padding: 20, gap: 15 }}>
+          <Text
             style={{
-              backgroundColor: "white",
-              paddingHorizontal:20,
-              paddingVertical:20,
+              color: "#60606C",
+              fontWeight: "400",
+              fontSize: 18,
             }}
           >
-                <View style={styles.btn4}>
-                  <TouchableOpacity
-                    style={styles.button3}
-                    onPress={() => navigation.navigate("")}
-                  >
-                    <Text style={styles.buttonText2}>
-                      {" "}
-                      Pick up
-                      <View></View>
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+            ARRIVING IN
+          </Text>
+          <View style={{ gap: 8 }}>
+            <Text
+              style={{
+                color: "#05040B",
+                fontWeight: "600",
+                fontSize: 18.5,
+              }}
+            >
+              10 mins
+            </Text>
+            <Text>progress </Text>
           </View>
         </View>
-        <View>
-        <Image source={require("./assets/Musicmap.png")} style={styles.signupimage} />
+        <View style={styles.phone}>
+          <View
+            style={{
+              paddingVertical: 13,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 15,
+            }}
+          >
+            <Image source={require("./assets/Framee.png")} />
+            <Text style={styles.txt}>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 18,
+                  alignItems: "center",
+                }}
+              >
+                Hari{" "}
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "400",
+                  fontSize: "16",
+                  alignItems: "center",
+                  color: "#60606C",
+                }}
+              >
+                is on the way to to pick up your Courier.
+              </Text>
+            </Text>
+          </View>
+
+          <View style={{ paddingVertical: 13 }}>
+            <TouchableOpacity
+              style={styles.icons}
+              onPress={() => navigation.navigate("")}
+            >
+              <FontAwesome6 name="phone-volume" size={24} color="#B14DDF" />
+            </TouchableOpacity>
+          </View>
         </View>
-        
-
-     
-
-
-         
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+  containertwo: {
+    borderRadius: 30,
+    borderWidth: 0.5,
+    borderColor: "pink",
+    backgroundColor: "#FFFFFF",
+  },
+  icons: {
+    paddingVertical: 15,
+    width: 55,
+    height: 55,
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    borderRadius: 8,
+  },
+  txt: {
+    color: "#05040B",
+    width: "70%",
+  },
+  phone: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    backgroundColor: "#F6F3FC",
+  },
   buttonText2: {
     borderColor: "#F6F3FC",
     color: "#9C4BDB",
-    marginBottom: 10,
-    paddingHorizontal: 8,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
     fontSize: 18,
   },
-  signupimage:{
+  signupimage: {
+    objectFit: "cover",
+    width: "100%",
+    flex: 1,
+    backgroundColor: "red",
   },
-
-
-
 });

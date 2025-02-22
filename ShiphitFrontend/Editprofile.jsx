@@ -1,18 +1,14 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { ScrollView } from "react-native-web";
 
 export default function Editprofile() {
   const [phone, setPhone] = useState("");

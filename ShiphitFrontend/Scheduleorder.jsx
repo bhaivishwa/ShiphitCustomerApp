@@ -1,34 +1,26 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
 import { FlatList } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
+import { Fontisto } from "@expo/vector-icons";
 
 export default function Scheduleorder() {
   const [Date_, setDate] = useState({});
   const [Noon, setNoon] = useState({});
-  const [
-    phone,
-    setPhone,
-    selectedvalue,
-    setSelectedvalue,
-    text,
-    setText,
-    isOn,
-    setIsOn,
-  ] = useState("");
+  const [Timeslot_Value, setTimeslot_Value] = useState({});
   const dataset = [
     {
-      date: "23",
+      date: "20",
+      day: "Sun",
+    },
+    {
+      date: "21",
+      day: "Sun",
+    },
+    {
+      date: "22",
       day: "Sun",
     },
     {
@@ -36,98 +28,179 @@ export default function Scheduleorder() {
       day: "Sun",
     },
     {
-      date: "23",
+      date: "24",
       day: "Sun",
     },
     {
-      date: "23",
+      date: "25",
       day: "Sun",
     },
     {
-      date: "23",
+      date: "26",
       day: "Sun",
     },
     {
-      date: "23",
-      day: "Sun",
-    },
-    {
-      date: "23",
-      day: "Sun",
-    },
-    {
-      date: "23",
+      date: "27",
       day: "Sun",
     },
   ];
 
-  const navigation = useNavigation();
+  const Timeslot = [
+    {
+      Morning: ["9 AM - 10 AM", "10 AM - 11 AM", "11 AM - 12 PM"],
+      Afternoon: ["12 PM - 1 PM", "1 PM - 2 PM", "2 PM - 3 PM", "3 PM - 4 PM"],
+      Evening: ["4 PM - 5 PM", "5 PM - 6 PM"],
+    },
+  ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
-        <View style={styles.lastcontent}>
-          <Text style={styles.choosedate}>Choose date you want ?</Text>
-          <View style={{ marginTop: 10 }}>
-            <FlatList
-              data={dataset}
-              keyExtractor={(item) => item.date}
-              horizontal
-              showsHorizontalScrollIndicator={false} // ✅ Hides scrollbar
-              renderItem={({ item, index }) => (
-                <TouchableOpacity
-                  style={[
-                    {
-                      backgroundColor: "white",
-                      paddingHorizontal: 7,
-                      paddingVertical: 12,
-                      borderWidth: 1,
-                      borderRadius: 4,
-                      alignItems: "center",
-                    },
-                    { marginRight: index !== dataset.length - 1 ? 15 : 0 }, // ✅ Space between images
-                  ]}
-                  onPress={() => setDate({ date: item.date, day: item.day })}
+    <View>
+      <View style={styles.lastcontent}>
+        <Text style={styles.choosedate}>Choose date you want ?</Text>
+        <View style={{ marginTop: 10 }}>
+          <FlatList
+            data={dataset}
+            keyExtractor={(item) => item.date}
+            horizontal
+            showsHorizontalScrollIndicator={false} // ✅ Hides scrollbar
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                style={[
+                  {
+                    alignItems: "center",
+                  },
+                  { marginRight: index !== dataset.length - 1 ? 15 : 0 }, // ✅ Space between images
+                ]}
+                onPress={() => setDate({ date: item.date, day: item.day })}
+              >
+                <LinearGradient
+                  colors={
+                    Date_.date === item.date
+                      ? ["#6246D2", "#CE4FE3"]
+                      : ["#FFFFFF", "#FFFFFF"]
+                  }
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{
+                    borderWidth: 0.5,
+                    borderRadius: 4,
+                    position: "relative",
+                    paddingHorizontal: 7,
+                    paddingVertical: 12,
+                    alignItems: "center",
+                    gap: 4,
+                    borderColor: "purple", // Light purple border
+                  }}
                 >
-                  <Text style={{ fontWeight: 600 }}>{item.date}</Text>
-                  <Text style={{ fontWeight: 600 }}>{item.day}</Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
+                  <Text
+                    style={{
+                      fontWeight: 600,
+                      color: Date_.date === item.date ? "white" : "black",
+                    }}
+                  >
+                    {item.date}
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: 600,
+                      color: Date_.date === item.date ? "white" : "black",
+                    }}
+                  >
+                    {item.day}
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            )}
+          />
         </View>
-        <View
-          style={
-            Object.keys(Date_).length === 0
-              ? { display: "none" }
-              : { display: "flex" }
-          }
-        >
-          <Text style={styles.choosedate}>
-            At What time should the proffessional arive ?
-          </Text>
+      </View>
+      <View
+        style={
+          Object.keys(Date_).length === 0
+            ? { display: "none" }
+            : {
+                display: "flex",
+                backgroundColor: "white",
+                padding: 20,
+                marginBottom: 10,
+              }
+        }
+      >
+        <Text style={styles.choosedate}>
+          At What time should the proffessional arive ?
+        </Text>
+        <View style={{ marginTop: 20 }}>
           <View
             style={{
-              paddingVertical: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              {["Morning", "Afternoon", "Evening"].map((d) => (
-                <TouchableOpacity
-                  style={styles.noon}
-                  onPress={() => setNoon({ Noon: d })}
+            {[
+              {
+                Noontext: "Morning",
+                IconComponent: Feather,
+                iconName: "cloud",
+              },
+              {
+                Noontext: "Afternoon",
+                IconComponent: Fontisto,
+                iconName: "day-cloudy",
+              },
+              {
+                Noontext: "Evening",
+                IconComponent: Fontisto,
+                iconName: "night-alt-cloudy",
+              },
+            ].map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  width: "30%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => setNoon({ Noon: item.Noontext })}
+              >
+                <LinearGradient
+                  colors={
+                    Noon.Noon === item.Noontext
+                      ? ["#6246D2", "#CE4FE3"]
+                      : ["#FFFFFF", "#FFFFFF"]
+                  }
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{
+                    borderWidth: 0.5,
+                    flexDirection: "row",
+                    width: "100%",
+                    borderRadius: 4,
+                    paddingHorizontal: 7,
+                    paddingVertical: 12,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 4,
+                    borderColor: "purple", // Light purple border
+                  }}
                 >
-                  <Entypo name="icloud" size={24} color="black" />
-                  <Text style={styles.buttonText1}>{d}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+                  <item.IconComponent
+                    name={item.iconName}
+                    size={22}
+                    color={Noon.Noon === item.Noontext ? "white" : "black"} // ✅ Icon color change
+                  />
+                  <Text
+                    style={[
+                      styles.buttonText1,
+                      {
+                        color: Noon.Noon === item.Noontext ? "white" : "black",
+                      },
+                    ]}
+                  >
+                    {item.Noontext}
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
         <View
@@ -136,38 +209,56 @@ export default function Scheduleorder() {
             flexWrap: "wrap",
             flexDirection: "row",
             gap: 15,
-            paddingVertical: 20,
+            backgroundColor: "white",
             borderTopWidth: 2,
             borderColor: "#EBEBEB",
+            marginTop: 20,
+            paddingTop: 20,
           }}
         >
-          <TouchableOpacity
-            style={styles.noon}
-            onPress={() => navigation.navigate("")}
-          >
-            <Text style={styles.buttonText1}>9 AM - 10 AM</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.noon}
-            onPress={() => navigation.navigate("")}
-          >
-            <Text style={styles.buttonText1}>10 AM - 11 AM</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.noon}
-            onPress={() => navigation.navigate("")}
-          >
-            <Text style={styles.buttonText1}>11 AM - 12 PM</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.noon}
-            onPress={() => navigation.navigate("")}
-          >
-            <Text style={styles.buttonText1}>12 PM - 1 PM</Text>
-          </TouchableOpacity>
+          {Timeslot[0][Noon.Noon]?.map((item) => (
+            <TouchableOpacity
+              style={{ width: "30%" }}
+              onPress={() => setTimeslot_Value({ time: item })}
+            >
+              <LinearGradient
+                colors={
+                  Timeslot_Value?.time === item
+                    ? ["#6246D2", "#CE4FE3"]
+                    : ["#FFFFFF", "#FFFFFF"]
+                }
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  borderWidth: 0.5,
+                  flexDirection: "row",
+                  width: "100%",
+                  borderRadius: 4,
+                  paddingHorizontal: 7,
+                  paddingVertical: 12,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  alignSelf: "flex-start",
+                  gap: 4,
+                  borderColor: "purple", // Light purple border
+                }}
+              >
+                <Text
+                  style={[
+                    styles.buttonText1,
+                    {
+                      color: Timeslot_Value?.time === item ? "white" : "black",
+                    },
+                  ]}
+                >
+                  {item}
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          ))}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 }
 
@@ -227,6 +318,8 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "white",
     marginBottom: 10,
+    paddingVertical: 20,
+    paddingLeft: 20,
   },
   contents: {
     display: "flex",

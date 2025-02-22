@@ -12,12 +12,14 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import dataset from "./utilities/restrictedItems";
+import dataset from "../utilities/restrictedItems";
+import Header from "./Header";
 
 export default function Restricteditems() {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Header />
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, margin: 20, paddingBottom: 25 }}
       >
@@ -31,28 +33,28 @@ export default function Restricteditems() {
           </Text>
           <View style={styles.wrongimg}>
             <Image
-              source={require("./assets/wrong.png")}
+              source={require("../assets/wrong.png")}
               style={styles.wrong}
             />
             <Text style={styles.text1}>Lorem ipsum dolor sit amet</Text>
           </View>
           <View style={styles.wrongimg}>
             <Image
-              source={require("./assets/wrong.png")}
+              source={require("../assets/wrong.png")}
               style={styles.wrong}
             />
             <Text style={styles.text1}>Lorem ipsum dolor sit amet</Text>
           </View>
           <View style={styles.wrongimg}>
             <Image
-              source={require("./assets/wrong.png")}
+              source={require("../assets/wrong.png")}
               style={styles.wrong}
             />
             <Text style={styles.text1}>Lorem ipsum dolor sit amet</Text>
           </View>
           <View style={styles.wrongimg}>
             <Image
-              source={require("./assets/wrong.png")}
+              source={require("../assets/wrong.png")}
               style={styles.wrong}
             />
             <Text style={styles.text1}>Lorem ipsum dolor sit amet</Text>
@@ -77,7 +79,7 @@ export default function Restricteditems() {
                 <>
                   <View style={styles.wrongimg}>
                     <Image
-                      source={require("./assets/wrong.png")}
+                      source={require("../assets/wrong.png")}
                       style={styles.wrong}
                     />
                     <Text style={styles.text1}>{d}</Text>
