@@ -1,0 +1,242 @@
+import React, { useState, useEffect, useRef } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert,
+  Image,
+} from "react-native";
+import MapView, { Marker, Polyline, AnimatedRegion } from "react-native-maps";
+import * as Location from "expo-location";
+import LottieView from "lottie-react-native";
+
+const GOOGLE_MAPS_API_KEY = "AIzaSyB_sePfGC7khG1CVlY87cTc4qNUnFsMS5Q"; // Replace with your actual API Key
+
+export default function RealTimeNavigation() {
+  const [location, setLocation] = useState(null);
+  const [routeCoordinates, setRouteCoordinates] = useState([]);
+  const [instructions, setInstructions] = useState([]);
+  const [loadingRoute, setLoadingRoute] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const mapRef = useRef(null);
+  const locationSubscription = useRef(null);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+  // Destination
+  const [destination] = useState({
+    latitude: 12.9911, // St. Thomas Mount (Example)
+    longitude: 80.2183,
+  });
+
+  // Animated User Location
+  const animatedLocation = useRef(
+    new AnimatedRegion({
+      latitude: 12.9911,
+      longitude: 80.2183,
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005,
+    })
+  ).current;
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permission Denied", "Enable location services.");
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation.coords);
+      animatedLocation.setValue({
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+      });
+
+      locationSubscription.current = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 2000, // More frequent updates
+          distanceInterval: 1, // Updates on every meter moved
+        },
+        (newLocation) => {
+          setLocation(newLocation.coords);
+          animateUserLocation(newLocation.coords);
+          if (isNavigating) snapToRoads(newLocation.coords);
+        }
+      );
+    })();
+
+    return () =>
+      locationSubscription.current && locationSubscription.current.remove();
+  }, [isNavigating]);
+
+  // Smoothly move user marker
+  const animateUserLocation = (coords) => {
+    animatedLocation
+      .timing({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        duration: 1000, // Faster updates
+        useNativeDriver: false,
+      })
+      .start();
+
+    if (mapRef.current) {
+      mapRef.current.animateCamera({
+        center: { latitude: coords.latitude, longitude: coords.longitude },
+        zoom: 17, // Zoom closer
+      });
+    }
+  };
+
+  // Fetch route from Google Directions API
+  const fetchRoute = async (origin) => {
+    if (!origin) {
+      Alert.alert("Error", "Current location not available.");
+      return;
+    }
+    setLoadingRoute(true);
+    try {
+      const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&mode=driving&key=${GOOGLE_MAPS_API_KEY}`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status !== "OK") {
+        Alert.alert("API Error", `Error: ${data.status}`);
+        setLoadingRoute(false);
+        return;
+      }
+
+      if (data.routes.length) {
+        const points = decodePolyline(data.routes[0].overview_polyline.points);
+        setRouteCoordinates(points);
+        setInstructions(
+          data.routes[0].legs[0].steps.map((step) =>
+            step.html_instructions.replace(/<[^>]*>/g, "")
+          )
+        );
+      } else {
+        Alert.alert("Error", "No route found!");
+      }
+    } catch (error) {
+      Alert.alert("Error", `Could not fetch route. ${error.message}`);
+    }
+    setLoadingRoute(false);
+  };
+
+  // Decode Google polyline to coordinates
+  const decodePolyline = (encoded) => {
+    let points = [];
+    let index = 0,
+      lat = 0,
+      lng = 0;
+
+    while (index < encoded.length) {
+      let shift = 0,
+        result = 0;
+      let b;
+      do {
+        b = encoded.charCodeAt(index++) - 63;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      let dlat = result & 1 ? ~(result >> 1) : result >> 1;
+      lat += dlat;
+
+      shift = 0;
+      result = 0;
+      do {
+        b = encoded.charCodeAt(index++) - 63;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      let dlng = result & 1 ? ~(result >> 1) : result >> 1;
+      lng += dlng;
+
+      points.push({ latitude: lat / 1e5, longitude: lng / 1e5 });
+    }
+    return points;
+  };
+
+  // Snap user location to nearest road using Google Roads API
+  const snapToRoads = async (coords) => {
+    try {
+      const url = `https://roads.googleapis.com/v1/snapToRoads?path=${coords.latitude},${coords.longitude}&interpolate=true&key=${GOOGLE_MAPS_API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.snappedPoints) {
+        const snappedLocation = data.snappedPoints[0].location;
+        animateUserLocation({
+          latitude: snappedLocation.latitude,
+          longitude: snappedLocation.longitude,
+        });
+      }
+    } catch (error) {
+      console.error("Error snapping to road:", error);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <MapView ref={mapRef} style={styles.map}>
+        {location && (
+          <Marker.Animated coordinate={animatedLocation}>
+            <Image
+              source={require("./assets/bike.png")} // Use GIF or APNG
+              style={{
+                width: 30,
+                height: 30,
+                transform: [{ scaleX: -1 }], // Flips the image horizontally
+              }}
+            />
+          </Marker.Animated>
+        )}
+        <Marker coordinate={destination} title="Destination" />
+        {routeCoordinates.length > 0 && (
+          <Polyline
+            coordinates={routeCoordinates}
+            strokeWidth={4}
+            strokeColor="blue"
+          />
+        )}
+      </MapView>
+      <View style={styles.controlsContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            fetchRoute(location);
+            setIsNavigating(true);
+          }}
+          style={styles.navButton}
+          disabled={loadingRoute}
+        >
+          {loadingRoute ? (
+            <ActivityIndicator size="small" color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>
+              {isNavigating ? "Navigating..." : "Start Navigation"}
+            </Text>
+          )}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  map: { width: "100%", height: "100%" },
+  controlsContainer: { position: "absolute", bottom: 20, left: 20, right: 20 },
+  navButton: {
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: { color: "white", fontSize: 16, fontWeight: "bold" },
+});

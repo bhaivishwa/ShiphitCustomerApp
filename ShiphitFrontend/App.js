@@ -19,7 +19,12 @@ import Notification from "./Notification";
 import Trackingpage from "./Trackingpage";
 import SuccessScreen from "./Layouts/SuccessScreen";
 import Courierpickupdetails from "./Courierpickupdetails";
-import Pickupmap from "./Pickupmap";
+import Trackingmap from "./Trackingmap";
+import Navigatemap from "./Navigatemap";
+import Navigatemapversion from "./Navigatemapversion"
+import Verifypassword from "./Verifypassword";
+import Trialmap from "./Trialmap";
+import Navigatemapversionone from "./Navigatemapversionone";
 
 const Stack = createStackNavigator();
 
@@ -37,30 +42,29 @@ const AuthProvider = ({ children }) => {
     };
     checkAuthStatus();
   }, []);
-
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 // 🚀 Use Auth Hook for easy access
 const useAuth = () => useContext(AuthContext);
 
 const AppNavigator = () => {
   const { isLoggedIn } = useAuth();
-
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={isLoggedIn ? "Pickupmap" : "Login"}
+        initialRouteName={isLoggedIn ? "Navigatemapversionone" : "Login"}
         screenOptions={{ headerShown: false }}
       >
         {isLoggedIn ? (
           <>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
+            <Stack.Screen name="Navigatemapversion" component={Navigatemapversion}/>
+            <Stack.Screen name="Navigatemapversionone" component={Navigatemapversionone}/>
             <Stack.Screen
               name="Termsandcondition"
               component={Termsandcondition}
@@ -74,7 +78,10 @@ const AppNavigator = () => {
             <Stack.Screen name="Entercomplete" component={Entercomplete} />
             <Stack.Screen name="Notification" component={Notification} />
             <Stack.Screen name="Trackingpage" component={Trackingpage} />
-            <Stack.Screen name="Pickupmap" component={Pickupmap}/>
+            <Stack.Screen name="Trackingmap" component={Trackingmap} />
+            <Stack.Screen name="Navigatemap" component={Navigatemap} />
+            <Stack.Screen name="Trialmap" component={Trialmap} />
+            <Stack.Screen name="Verifypassword" component={Verifypassword} />
             <Stack.Screen
               name="Courierpickupdetails"
               component={Courierpickupdetails}

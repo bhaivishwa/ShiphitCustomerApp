@@ -14,11 +14,12 @@ const Header = () => {
       style={[
         {
           backgroundColor: "#6246D2",
-          height: 105,
+          height:65,
           flexDirection: "row",
           justifyContent: "space-between",
           width: "100%",
           alignItems: "flex-end",
+          paddingHorizontal:8,
         },
       ]}
     >
@@ -26,9 +27,9 @@ const Header = () => {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          width: "100%",
+          width: "80%",
           alignItems: "center",
-          marginBottom: 25,
+          marginBottom: 18,
           paddingHorizontal: 20,
         }}
       >
@@ -45,18 +46,9 @@ const Header = () => {
           >
             <AntDesign name="arrowleft" size={24} color="white" />
           </TouchableOpacity>
-          <Text style={tw`text-white text-lg pl-4`}>Tracking</Text>
+          <Text style={{color:"#FFFFFF", fontWeight:"500", fontSize:17, paddingHorizontal:15,}}>Tracking</Text>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 20,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <MaterialIcons name="help-outline" size={24} color="white" />
-        </View>
+       
       </View>
     </View>
   );
